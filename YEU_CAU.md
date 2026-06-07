@@ -4,6 +4,12 @@
     + Spring Boot MVC
     + ThymeLeaf
     + SQL Server
+- Cách mở ứng dụng:
+    + Mở terminal tại thư mục BookStore, chạy: `mvn spring-boot:run`
+    + Truy cập: http://localhost:8080
+- Cách tắt ứng dụng:
+    + Nhấn Ctrl+C trong terminal đang chạy Maven
+    + Nếu bị treo port: `taskkill /F /PID <PID>` (lấy PID từ `netstat -ano | findstr :8080`)
 - Yêu cầu về dữ liệu:
     - Nhập 1 admin và 2 khách hàng.
     - Ít nhất 30 sản phẩm, mỗi sản phẩm có 1 hình.

@@ -84,6 +84,15 @@ cd BookStore
 mvn spring-boot:run
 ```
 
+### Tắt ứng dụng
+Nhấn `Ctrl+C` trong cửa sổ terminal đang chạy Maven. Nếu bị treo port:
+```bash
+# Tìm PID trên cổng 8080
+netstat -ano | findstr :8080
+# Kill process (thay PID bằng số tìm được)
+taskkill /F /PID <PID>
+```
+
 Truy cập: **http://localhost:8080**
 
 ### Tài khoản
