@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout::head(title='BookStore - Trang chủ')"></head>
+<body>
+    <nav th:replace="layout::navbar"></nav>
+
+    <div class="hero-section">
+        <div class="container text-center">
+            <h1>Chào mừng đến với BookStore</h1>
+            <p class="lead">Khám phá hàng ngàn đầu sách hấp dẫn trong bộ sưu tập đẳng cấp</p>
+            <a th:href="@{/shop}" class="btn btn-light btn-lg">Khám phá ngay</a>
+        </div>
+    </div>
+
+    <div class="container my-5">
+        <div class="row mb-4">
+            <div class="col">
+                <h2 class="section-title"><i class="fas fa-crown me-2"></i>Danh mục nổi bật</h2>
+            </div>
+        </div>
+        <div class="row g-3 mb-5">
+            <div class="col-md-3 col-6" th:each="cat : ${categories}">
+                <a th:href="@{'/shop?category=' + ${cat.id}}" class="text-decoration-none">
+                    <div class="card text-center py-3 h-100" style="cursor: pointer;">
+                        <div class="card-body">
+                            <i class="fas fa-book" style="font-size: 1.8rem; color: var(--blood-red); margin-bottom: 0.5rem;"></i>
+                            <h6 class="card-title mb-0" style="color: var(--off-white); font-size: 0.9rem;" th:text="${cat.name}">Category</h6>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="section-title mb-0"><i class="fas fa-star me-2"></i>Sản phẩm mới nhất</h2>
+            <a th:href="@{/shop}" class="btn btn-outline-primary btn-sm">Xem tất cả <i class="fas fa-arrow-right ms-1"></i></a>
+        </div>
+        <div class="gothic-divider">✦ ✦ ✦</div>
+
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4" th:each="product : ${products.content}">
+                <div class="card product-card h-100">
+                    <div class="product-img-container position-relative">
+                        <img th:if="${product.image != null}" th:src="@{'/images/' + ${product.image}}"
+                             class="card-img-top" th:alt="${product.name}">
+                        <div th:if="${product.image == null}" class="d-flex align-items-center justify-content-center h-100 text-muted">
+                            <i class="fas fa-book fa-4x"></i>
+                        </div>
+                        <span class="badge position-absolute top-0 start-0 m-2" style="background: var(--blood-red);">
+                            <i class="fas fa-star"></i> Mới
+                        </span>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <h6 class="card-title text-truncate" th:text="${product.name}">Sách</h6>
+                        <p class="card-text" style="color: var(--silver); font-size: 0.8rem;">
+                            <i class="fas fa-user-pen me-1"></i><span th:text="${product.author}">Tác giả</span>
+                        </p>
+                        <div class="mt-auto">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="fw-bold" style="color: var(--blood-red); font-size: 1.1rem;">
+                                    <th:block th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')}"></th:block>₫
+                                </span>
+                                <span style="color: var(--forest-green); font-size: 0.75rem;">
+                                    <i class="fas fa-check-circle"></i> Còn hàng
+                                </span>
+                            </div>
+                            <form th:action="@{'/cart/add/' + ${product.id}}" method="post" class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-sm" sec:authorize="isAuthenticated()">
+                                    <i class="fas fa-cart-plus"></i> Thêm vào giỏ
+                                </button>
+                                <a th:href="@{/login}" class="btn btn-primary btn-sm" sec:authorize="!isAuthenticated()">
+                                    <i class="fas fa-cart-plus"></i> Thêm vào giỏ
+                                </a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="layout::footer"></div>
+</body>
+</html>

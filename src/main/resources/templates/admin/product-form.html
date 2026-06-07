@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout::head(title='Admin - Sản phẩm')"></head>
+<body>
+    <nav th:replace="layout::navbar"></nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2 sidebar">
+                <h5><i class="fas fa-tachometer-alt me-2"></i>Quản trị</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item"><a class="nav-link" th:href="@{/admin}"><i class="fas fa-chart-simple"></i> Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/admin/products}"><i class="fas fa-book"></i> Sản phẩm</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/admin/orders}"><i class="fas fa-truck"></i> Đơn hàng</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/admin/orders/revenue}"><i class="fas fa-dollar-sign"></i> Doanh thu</a></li>
+                </ul>
+            </div>
+            <div class="col-md-10 p-4">
+                <h2 class="section-title mb-4">
+                    <i class="fas" th:classappend="${product.id == null} ? 'fa-plus' : 'fa-edit'"></i>
+                    <span th:text="${product.id == null} ? 'Thêm sản phẩm' : 'Sửa sản phẩm'"></span>
+                </h2>
+
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <form th:action="${product.id == null} ? @{/admin/products/add} : @{/admin/products/edit/{id}(id=${product.id})}"
+                              method="post" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <label class="form-label">Tên sách <span class="text-danger">*</span></label>
+                                <input type="text" name="name" class="form-control" th:value="${product.name}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Tác giả</label>
+                                <input type="text" name="author" class="form-control" th:value="${product.author}">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Mô tả</label>
+                                <textarea name="description" class="form-control" rows="3" th:text="${product.description}"></textarea>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Giá <span class="text-danger">*</span></label>
+                                    <input type="number" name="price" class="form-control" step="0.01"
+                                           th:value="${product.price}" required>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Số lượng tồn kho <span class="text-danger">*</span></label>
+                                    <input type="number" name="stock" class="form-control" th:value="${product.stock}" required>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Danh mục</label>
+                                    <select name="category.id" class="form-select">
+                                        <option th:each="cat : ${categories}" th:value="${cat.id}"
+                                                th:text="${cat.name}"
+                                                th:selected="${product.category != null and product.category.id == cat.id}">
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Hình ảnh</label>
+                                <input type="file" name="imageFile" class="form-control" accept="image/*">
+                                <div th:if="${product.image != null}" class="mt-2">
+                                    <img th:src="@{'/images/' + ${product.image}}" style="max-height: 100px;">
+                                </div>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button type="submit" class="btn btn-primary">
+                                    <i th:if="${product.id == null}" class="fas fa-plus"></i>
+                                    <i th:if="${product.id != null}" class="fas fa-save"></i>
+                                    <th:block th:text="${product.id == null} ? ' Thêm' : ' Lưu'"></th:block>
+                                </button>
+                                <a th:href="@{/admin/products}" class="btn btn-secondary">Hủy</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="layout::footer"></div>
+</body>
+</html>

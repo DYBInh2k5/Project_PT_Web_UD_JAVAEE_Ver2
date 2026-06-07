@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout::head(title='Admin - Sản phẩm')"></head>
+<body>
+    <nav th:replace="layout::navbar"></nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2 sidebar">
+                <h5><i class="fas fa-tachometer-alt me-2"></i>Quản trị</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item"><a class="nav-link" th:href="@{/admin}"><i class="fas fa-chart-simple"></i> Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/admin/products}"><i class="fas fa-book"></i> Sản phẩm</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/admin/orders}"><i class="fas fa-truck"></i> Đơn hàng</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/admin/orders/revenue}"><i class="fas fa-dollar-sign"></i> Doanh thu</a></li>
+                </ul>
+            </div>
+            <div class="col-md-10 p-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h2 class="section-title mb-0">Quản lý sản phẩm</h2>
+                    <a th:href="@{/admin/products/add}" class="btn btn-success"><i class="fas fa-plus"></i> Thêm sản phẩm</a>
+                </div>
+
+                <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+                <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Hình</th>
+                                        <th>Tên sách</th>
+                                        <th>Tác giả</th>
+                                        <th>Danh mục</th>
+                                        <th>Giá</th>
+                                        <th>Tồn kho</th>
+                                        <th>Thao tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="p : ${products.content}">
+                                        <td th:text="${p.id}"></td>
+                                        <td>
+                                        <img th:if="${p.image != null}" th:src="@{'/images/' + ${p.image}}"
+                                             style="width: 50px; height: 70px; object-fit: cover;">
+                                        <div th:if="${p.image == null}" class="d-flex align-items-center justify-content-center text-muted"
+                                             style="width: 50px; height: 70px; background: #f0f0f0;">
+                                            <i class="fas fa-book fa-2x"></i>
+                                        </div>
+                                        </td>
+                                        <td th:text="${p.name}"></td>
+                                        <td th:text="${p.author}"></td>
+                                        <td th:text="${p.category.name}"></td>
+                                        <td th:text="${#numbers.formatDecimal(p.price, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></td>
+                                        <td>
+                                            <span th:text="${p.stock}"
+                                                  th:classappend="${p.stock == 0} ? 'text-danger fw-bold' : ''"></span>
+                                        </td>
+                                        <td>
+                                            <a th:href="@{'/admin/products/edit/' + ${p.id}}" class="btn btn-sm btn-warning">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a th:href="@{'/admin/products/delete/' + ${p.id}}" class="btn btn-sm btn-danger"
+                                               onclick="return confirm('Xóa sản phẩm này?')">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <nav th:if="${products.totalPages > 1}">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+                                    <a class="page-link" th:href="@{/admin/products(page=${currentPage - 1})}">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </a>
+                                </li>
+                                <li class="page-item" th:each="i : ${#numbers.sequence(0, products.totalPages - 1)}"
+                                    th:classappend="${i == currentPage} ? 'active'">
+                                    <a class="page-link" th:href="@{/admin/products(page=${i})}" th:text="${i + 1}">1</a>
+                                </li>
+                                <li class="page-item" th:classappend="${currentPage >= products.totalPages - 1} ? 'disabled'">
+                                    <a class="page-link" th:href="@{/admin/products(page=${currentPage + 1})}">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="layout::footer"></div>
+</body>
+</html>

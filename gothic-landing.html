@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noctis &mdash; Gothic Moderno | Dark Elegance Redefined</title>
+    <meta name="description" content="Noctis is a modern gothic fashion house blending dark elegance with contemporary design. Explore our collections of sophisticated, edgy apparel.">
+    <meta property="og:title" content="Noctis &mdash; Gothic Moderno">
+    <meta property="og:description" content="Dark elegance redefined. Modern gothic fashion for the daring soul.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://noctis.com">
+    <meta name="theme-color" content="#1A1A1A">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --onyx-black-gothic: #1A1A1A;
+            --blood-red-gothic: #8B0000;
+            --silver-gothic: #C0C0C0;
+            --off-white-gothic: #F5F5F5;
+            --deep-purple-gothic: #480048;
+            --forest-green-gothic: #228B22;
+            --line-art-thickness: 1px;
+            --font-gothic: 'UnifrakturMaguntia', cursive;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #1A1A1A;
+            color: #F5F5F5;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .font-gothic { font-family: 'UnifrakturMaguntia', cursive; }
+
+        /* Smoke effect */
+        .smoke-overlay {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background:
+                radial-gradient(ellipse 80% 60% at 20% 30%, rgba(139,0,0,0.08) 0%, transparent 70%),
+                radial-gradient(ellipse 60% 80% at 80% 70%, rgba(192,192,192,0.05) 0%, transparent 70%),
+                radial-gradient(ellipse 50% 50% at 50% 50%, rgba(72,0,72,0.06) 0%, transparent 60%);
+            animation: smoke-drift 12s ease-in-out infinite alternate;
+        }
+
+        @keyframes smoke-drift {
+            0%   { transform: scale(1) translate(0, 0); opacity: 0.6; }
+            50%  { transform: scale(1.08) translate(-1%, 1%); opacity: 0.8; }
+            100% { transform: scale(0.95) translate(2%, -1%); opacity: 0.5; }
+        }
+
+        /* Gothic line art decorative divider */
+        .gothic-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--silver-gothic), transparent);
+            position: relative;
+            margin: 0 auto;
+            width: 80%;
+            max-width: 400px;
+        }
+        .gothic-divider::before,
+        .gothic-divider::after {
+            content: '\276C';
+            font-family: 'UnifrakturMaguntia', cursive;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--blood-red-gothic);
+            font-size: 1.2rem;
+        }
+        .gothic-divider::before { left: -20px; }
+        .gothic-divider::after  { right: -20px; content: '\276D'; }
+
+        /* Architectural line corner accents */
+        .arch-corner {
+            position: absolute;
+            width: 40px; height: 40px;
+            border-color: var(--silver-gothic);
+            opacity: 0.3;
+        }
+        .arch-corner.tl { top: 0; left: 0; border-top: var(--line-art-thickness) solid; border-left: var(--line-art-thickness) solid; }
+        .arch-corner.tr { top: 0; right: 0; border-top: var(--line-art-thickness) solid; border-right: var(--line-art-thickness) solid; }
+        .arch-corner.bl { bottom: 0; left: 0; border-bottom: var(--line-art-thickness) solid; border-left: var(--line-art-thickness) solid; }
+        .arch-corner.br { bottom: 0; right: 0; border-bottom: var(--line-art-thickness) solid; border-right: var(--line-art-thickness) solid; }
+
+        /* Glassmorphism card base */
+        .gothic-card {
+            background: rgba(26,26,26,0.85);
+            backdrop-filter: blur(12px);
+            border: var(--line-art-thickness) solid rgba(192,192,192,0.15);
+            box-shadow: 0 0 15px rgba(192,192,192,0.08);
+            transition: all 0.4s ease;
+        }
+        .gothic-card:hover {
+            border-color: rgba(192,192,192,0.4);
+            box-shadow: 0 0 25px rgba(139,0,0,0.2), 0 0 15px rgba(192,192,192,0.15);
+            transform: translateY(-4px);
+        }
+
+        /* Gothic button */
+        .btn-gothic {
+            background: transparent;
+            border: 1px solid var(--silver-gothic);
+            color: var(--off-white-gothic);
+            padding: 0.75rem 2rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-gothic::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--blood-red-gothic);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s ease;
+            z-index: -1;
+        }
+        .btn-gothic:hover::before { transform: scaleX(1); transform-origin: left; }
+        .btn-gothic:hover { border-color: var(--blood-red-gothic); color: #fff; }
+
+        .btn-gothic-primary {
+            background: var(--blood-red-gothic);
+            border: 1px solid var(--blood-red-gothic);
+            color: #fff;
+            padding: 0.75rem 2rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .btn-gothic-primary:hover {
+            background: transparent;
+            border-color: var(--silver-gothic);
+            color: var(--off-white-gothic);
+            box-shadow: 0 0 20px rgba(139,0,0,0.3);
+        }
+
+        /* Hero 3D abstract element */
+        .hero-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.3;
+            animation: orb-float 8s ease-in-out infinite alternate;
+        }
+        @keyframes orb-float {
+            0%   { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(30px, -20px) scale(1.1); }
+        }
+
+        .hero-ring {
+            position: absolute;
+            border: 1px solid rgba(192,192,192,0.15);
+            border-radius: 50%;
+            animation: ring-spin 20s linear infinite;
+        }
+        @keyframes ring-spin {
+            0%   { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hero-ring-inner {
+            position: absolute;
+            border: 1px solid rgba(139,0,0,0.2);
+            border-radius: 50%;
+            animation: ring-spin-reverse 15s linear infinite;
+        }
+        @keyframes ring-spin-reverse {
+            0%   { transform: rotate(0deg); }
+            100% { transform: rotate(-360deg); }
+        }
+
+        /* Smoke particle floating */
+        .particle {
+            position: absolute;
+            background: radial-gradient(circle, rgba(192,192,192,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: particle-float 6s ease-in-out infinite;
+        }
+        @keyframes particle-float {
+            0%, 100% { transform: translateY(0) scale(1); opacity: 0.3; }
+            50%      { transform: translateY(-30px) scale(1.3); opacity: 0.6; }
+        }
+
+        /* Floral SVG pattern background */
+        .floral-bg {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cpath d='M100 30 C120 20 140 30 145 50 C150 70 135 85 120 90 C105 95 100 85 100 85 C100 85 95 95 80 90 C65 85 50 70 55 50 C60 30 80 20 100 30Z' fill='none' stroke='%23C0C0C0' stroke-width='0.3' opacity='0.15'/%3E%3Ccircle cx='100' cy='55' r='3' fill='%238B0000' opacity='0.2'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 200px 200px;
+        }
+
+        /* Pricing highlight */
+        .pricing-highlight {
+            border: 2px solid var(--blood-red-gothic);
+            box-shadow: 0 0 30px rgba(139,0,0,0.2), 0 0 15px rgba(192,192,192,0.1);
+            transform: scale(1.03);
+            position: relative;
+        }
+        .pricing-highlight .pricing-badge {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--blood-red-gothic);
+            color: #fff;
+            padding: 0.25rem 1.5rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        /* Navbar scroll */
+        .navbar-scrolled {
+            background: rgba(26,26,26,0.92);
+            backdrop-filter: blur(16px);
+            border-bottom: var(--line-art-thickness) solid rgba(192,192,192,0.1);
+        }
+
+        /* Filter contrast for images */
+        .img-gothic {
+            filter: contrast(1.2) grayscale(0.3);
+            transition: filter 0.5s ease;
+        }
+        .img-gothic:hover {
+            filter: contrast(1.4) grayscale(0.1);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #1A1A1A; }
+        ::-webkit-scrollbar-thumb { background: #8B0000; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #C0C0C0; }
+
+        /* Text shadow for headings */
+        .text-shadow-gothic {
+            text-shadow: 0 0 5px #8B0000, 0 0 20px rgba(139,0,0,0.3);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .pricing-highlight { transform: scale(1); }
+            .hero-ring, .hero-ring-inner { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Smoke overlay -->
+<div class="smoke-overlay" aria-hidden="true"></div>
+
+<!-- ===== NAVBAR ===== -->
+<header id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16 lg:h-20">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-3 group cursor-pointer">
+                <svg class="w-8 h-8 text-blood-red-gothic transition-all group-hover:text-silver-gothic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                    <path d="M2 17l10 5 10-5"/>
+                    <path d="M2 12l10 5 10-5"/>
+                </svg>
+                <span class="font-gothic text-2xl lg:text-3xl text-off-white-gothic tracking-wide">Noctis</span>
+            </a>
+
+            <!-- Desktop nav -->
+            <nav class="hidden lg:flex items-center gap-8">
+                <a href="#features" class="text-sm uppercase tracking-[0.15em] text-silver-gothic hover:text-blood-red-gothic transition-colors cursor-pointer">Collections</a>
+                <a href="#testimonials" class="text-sm uppercase tracking-[0.15em] text-silver-gothic hover:text-blood-red-gothic transition-colors cursor-pointer">Testimonials</a>
+                <a href="#pricing" class="text-sm uppercase tracking-[0.15em] text-silver-gothic hover:text-blood-red-gothic transition-colors cursor-pointer">Pricing</a>
+                <a href="#contact" class="text-sm uppercase tracking-[0.15em] text-silver-gothic hover:text-blood-red-gothic transition-colors cursor-pointer">Contact</a>
+            </nav>
+
+            <!-- CTA + Mobile hamburger -->
+            <div class="flex items-center gap-4">
+                <a href="#cta" class="hidden sm:inline-block btn-gothic-primary text-xs cursor-pointer">Get Started</a>
+                <button id="mobile-menu-btn" class="lg:hidden text-silver-gothic hover:text-blood-red-gothic transition-colors cursor-pointer" aria-label="Toggle menu">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden lg:hidden bg-[#1A1A1A] border-t border-silver-gothic/10">
+        <div class="px-4 py-4 space-y-3">
+            <a href="#features" class="block text-sm uppercase tracking-[0.15em] text-silver-gothic py-2 cursor-pointer">Collections</a>
+            <a href="#testimonials" class="block text-sm uppercase tracking-[0.15em] text-silver-gothic py-2 cursor-pointer">Testimonials</a>
+            <a href="#pricing" class="block text-sm uppercase tracking-[0.15em] text-silver-gothic py-2 cursor-pointer">Pricing</a>
+            <a href="#contact" class="block text-sm uppercase tracking-[0.15em] text-silver-gothic py-2 cursor-pointer">Contact</a>
+            <a href="#cta" class="block btn-gothic-primary text-center text-xs mt-2 cursor-pointer">Get Started</a>
+        </div>
+    </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+    <!-- 3D abstract elements -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+        <div class="hero-orb w-[500px] h-[500px] bg-blood-red-gothic top-[-10%] left-[-5%]"></div>
+        <div class="hero-orb w-[400px] h-[400px] bg-deep-purple-gothic bottom-[-10%] right-[-5%]" style="animation-delay: -4s;"></div>
+        <div class="hero-orb w-[300px] h-[300px] bg-forest-green-gothic top-[40%] right-[15%]" style="animation-delay: -2s; opacity: 0.15;"></div>
+
+        <!-- Rotating rings -->
+        <div class="hero-ring w-[600px] h-[600px] top-[15%] left-[5%]" style="width: 600px; height: 600px;"></div>
+        <div class="hero-ring-inner w-[400px] h-[400px] top-[22%] left-[12%]" style="width: 400px; height: 400px;"></div>
+        <div class="hero-ring w-[500px] h-[500px] bottom-[10%] right-[8%]" style="width: 500px; height: 500px; animation-delay: -7s;"></div>
+
+        <!-- Floating particles -->
+        <div class="particle w-3 h-3 top-[20%] left-[15%]" style="animation-delay: 0s;"></div>
+        <div class="particle w-2 h-2 top-[35%] right-[25%]" style="animation-delay: -2s;"></div>
+        <div class="particle w-4 h-4 bottom-[30%] left-[30%]" style="animation-delay: -4s;"></div>
+        <div class="particle w-2 h-2 bottom-[20%] right-[15%]" style="animation-delay: -1s;"></div>
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <!-- Gothic decorative top -->
+        <div class="flex justify-center mb-6">
+            <svg width="60" height="20" viewBox="0 0 60 20" fill="none">
+                <path d="M0 10 L15 0 L30 10 L45 0 L60 10" stroke="#C0C0C0" stroke-width="0.8" opacity="0.4"/>
+                <path d="M0 12 L15 2 L30 12 L45 2 L60 12" stroke="#8B0000" stroke-width="0.5" opacity="0.3"/>
+            </svg>
+        </div>
+
+        <h1 class="font-gothic text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl text-off-white-gothic leading-tight text-shadow-gothic">
+            Gothic<br>
+            <span class="text-blood-red-gothic">Moderno</span>
+        </h1>
+
+        <p class="mt-6 max-w-2xl mx-auto text-silver-gothic text-lg sm:text-xl font-light leading-relaxed">
+            Where shadows dance with silk and steel. <br class="hidden sm:block">
+            A new era of dark elegance awaits the daring.
+        </p>
+
+        <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a href="#cta" class="btn-gothic-primary text-sm w-full sm:w-auto text-center cursor-pointer">Explore Collection</a>
+            <a href="#features" class="btn-gothic text-sm w-full sm:w-auto text-center cursor-pointer">View Lookbook</a>
+        </div>
+
+        <!-- Gothic divider -->
+        <div class="mt-16 gothic-divider"></div>
+    </div>
+
+    <!-- Corner accents -->
+    <div class="arch-corner tl"></div>
+    <div class="arch-corner tr"></div>
+    <div class="arch-corner bl"></div>
+    <div class="arch-corner br"></div>
+</section>
+
+<!-- ===== FEATURES ===== -->
+<section id="features" class="relative py-24 lg:py-32 floral-bg">
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <p class="font-gothic text-blood-red-gothic text-lg tracking-widest uppercase">Our Essence</p>
+            <h2 class="font-gothic text-4xl sm:text-5xl lg:text-6xl text-off-white-gothic mt-2">
+                Crafted in <span class="text-blood-red-gothic">Darkness</span>
+            </h2>
+            <div class="gothic-divider mt-6"></div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
+            <!-- Card 1 -->
+            <div class="gothic-card rounded-lg p-8 text-center group cursor-pointer relative">
+                <div class="arch-corner tl"></div>
+                <div class="arch-corner tr"></div>
+                <div class="arch-corner bl"></div>
+                <div class="arch-corner br"></div>
+                <div class="w-16 h-16 mx-auto mb-6 flex items-center justify-center rounded-full border border-silver-gothic/20 bg-blood-red-gothic/10">
+                    <svg class="w-8 h-8 text-blood-red-gothic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/>
+                        <line x1="7" y1="7" x2="7.01" y2="7"/>
+                    </svg>
+                </div>
+                <h3 class="font-gothic text-2xl text-off-white-gothic mb-3">Artisan Craft</h3>
+                <p class="text-silver-gothic/70 text-sm leading-relaxed">
+                    Each piece hand-finished by master artisans using centuries-old techniques blended with modern innovation.
+                </p>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="gothic-card rounded-lg p-8 text-center group cursor-pointer relative">
+                <div class="arch-corner tl"></div>
+                <div class="arch-corner tr"></div>
+                <div class="arch-corner bl"></div>
+                <div class="arch-corner br"></div>
+                <div class="w-16 h-16 mx-auto mb-6 flex items-center justify-center rounded-full border border-silver-gothic/20 bg-blood-red-gothic/10">
+                    <svg class="w-8 h-8 text-blood-red-gothic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+                    </svg>
+                </div>
+                <h3 class="font-gothic text-2xl text-off-white-gothic mb-3">Eternal Materials</h3>
+                <p class="text-silver-gothic/70 text-sm leading-relaxed">
+                Premium Italian leather, Japanese silk, and hand-forged German silver &mdash; materials built to outlast time.
+                </p>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="gothic-card rounded-lg p-8 text-center group cursor-pointer relative">
+                <div class="arch-corner tl"></div>
+                <div class="arch-corner tr"></div>
+                <div class="arch-corner bl"></div>
+                <div class="arch-corner br"></div>
+                <div class="w-16 h-16 mx-auto mb-6 flex items-center justify-center rounded-full border border-silver-gothic/20 bg-blood-red-gothic/10">
+                    <svg class="w-8 h-8 text-blood-red-gothic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 6v6l4 2"/>
+                    </svg>
+                </div>
+                <h3 class="font-gothic text-2xl text-off-white-gothic mb-3">Bespoke Fit</h3>
+                <p class="text-silver-gothic/70 text-sm leading-relaxed">
+                    Every garment tailored to your exact measurements with a private consultation and three fitting sessions.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== TESTIMONIALS ===== -->
+<section id="testimonials" class="relative py-24 lg:py-32">
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <p class="font-gothic text-blood-red-gothic text-lg tracking-widest uppercase">Voices</p>
+            <h2 class="font-gothic text-4xl sm:text-5xl lg:text-6xl text-off-white-gothic mt-2">
+                What the <span class="text-blood-red-gothic">Shadows</span> Say
+            </h2>
+            <div class="gothic-divider mt-6"></div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
+            <!-- Testimonial 1 -->
+            <div class="gothic-card rounded-lg p-8 relative cursor-pointer">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-14 h-14 rounded-full overflow-hidden border border-silver-gothic/20 img-gothic">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&h=120&fit=crop&crop=face" alt="Client portrait" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h4 class="font-gothic text-lg text-off-white-gothic">Victor Blackwood</h4>
+                        <p class="text-silver-gothic/50 text-xs uppercase tracking-widest">Designer</p>
+                    </div>
+                </div>
+                <p class="text-silver-gothic/70 text-sm leading-relaxed italic">
+                    &ldquo;Noctis doesn&rsquo;t just dress you &mdash; they transform how you move through the world. The tailoring is architectural.&rdquo;
+                </p>
+                <div class="mt-4 flex gap-1">
+                    <svg class="w-4 h-4 text-blood-red-gothic" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg class="w-4 h-4 text-blood-red-gothic" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg class="w-4 h-4 text-blood-red-gothic" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg class="w-4 h-4 text-blood-red-gothic" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg class="w-4 h-4 text-blood-red-gothic" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
+            </div>
+
+            <!-- Testimonial 2 -->
+            <div class="gothic-card rounded-lg p-8 relative cursor-pointer">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-14 h-14 rounded-full overflow-hidden border border-silver-gothic/20 img-gothic">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120&h=120&fit=crop&crop=face" alt="Client portrait" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h4 class="font-gothic text-lg text-off-white-gothic">Lilith Ravenscroft</h4>
+                        <p class="text-silver-gothic/50 text-xs uppercase tracking-widest">Creative Director</p>
+                    </div>
+                </div>
+                <p class="text-silver-gothic/70 text-sm leading-relaxed italic">
+                    &ldquo;I&rsquo;ve never worn anything that made me feel so powerful. The blood-red lining is an unexpected &mdash; and unforgettable &mdash; signature.&rdquo;
+                </p>
+                <div class="mt-4 flex gap-1">
+                    <svg class="w-4 h-4 text-blood-red-gothic" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg class="w-4 h-4 text-blood-red-gothic" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg class="w-4 h-4 text-blood-red-gothic" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg class="w-4 h-4 text-blood-red-gothic" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg class="w-4 h-4 text-blood-red-gothic" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
+            </div>
+
+            <!-- Testimonial 3 -->
+            <div class="gothic-card rounded-lg p-8 relative cursor-pointer">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-14 h-14 rounded-full overflow-hidden border border-silver-gothic/20 img-gothic">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=120&h=120&fit=crop&crop=face" alt="Client portrait" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h4 class="font-gothic text-lg text-off-white-gothic">Marcus Thornfeld</h4>
+                        <p class="text-silver-gothic/50 text-xs uppercase tracking-widest">Photographer</p>
+                    </div>
+                </div>
+                <p class="text-silver-gothic/70 text-sm leading-relaxed italic">
+                    &ldquo;The bespoke experience is unlike anything I&rsquo;ve encountered. They captured my aesthetic in ways I couldn&rsquo;t articulate myself.&rdquo;
+                </p>
+                <div class="mt-4 flex gap-1">
+                    <svg class="w-4 h-4 text-blood-red-gothic" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg class="w-4 h-4 text-blood-red-gothic" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg class="w-4 h-4 text-blood-red-gothic" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg class="w-4 h-4 text-blood-red-gothic" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg class="w-4 h-4 text-silver-gothic/30" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== PRICING ===== -->
+<section id="pricing" class="relative py-24 lg:py-32 floral-bg">
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <p class="font-gothic text-blood-red-gothic text-lg tracking-widest uppercase">Investment</p>
+            <h2 class="font-gothic text-4xl sm:text-5xl lg:text-6xl text-off-white-gothic mt-2">
+                Choose Your <span class="text-blood-red-gothic">Path</span>
+            </h2>
+            <div class="gothic-divider mt-6"></div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto items-start">
+            <!-- Tier 1 -->
+            <div class="gothic-card rounded-lg p-8 text-center relative cursor-pointer">
+                <div class="arch-corner tl"></div>
+                <div class="arch-corner tr"></div>
+                <div class="arch-corner bl"></div>
+                <div class="arch-corner br"></div>
+                <h3 class="font-gothic text-2xl text-off-white-gothic mb-2">Shadow</h3>
+                <p class="text-silver-gothic/50 text-xs uppercase tracking-widest mb-6">Essentials</p>
+                <p class="text-4xl font-gothic text-blood-red-gothic mb-1">$299</p>
+                <p class="text-silver-gothic/50 text-xs mb-8">one-time purchase</p>
+                <ul class="text-left space-y-3 mb-8 text-sm text-silver-gothic/70">
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-blood-red-gothic mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                        Single garment
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-blood-red-gothic mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                        Standard fit
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-blood-red-gothic mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                        1 consultation
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-blood-red-gothic mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                        30-day delivery
+                    </li>
+                </ul>
+                <a href="#" class="btn-gothic w-full text-xs cursor-pointer">Select Shadow</a>
+            </div>
+
+            <!-- Tier 2 (Highlighted) -->
+            <div class="gothic-card pricing-highlight rounded-lg p-8 text-center relative cursor-pointer">
+                <div class="arch-corner tl"></div>
+                <div class="arch-corner tr"></div>
+                <div class="arch-corner bl"></div>
+                <div class="arch-corner br"></div>
+                <div class="pricing-badge">Most Popular</div>
+                <h3 class="font-gothic text-2xl text-off-white-gothic mb-2">Noctis</h3>
+                <p class="text-silver-gothic/50 text-xs uppercase tracking-widest mb-6">Signature</p>
+                <p class="text-4xl font-gothic text-blood-red-gothic mb-1">$799</p>
+                <p class="text-silver-gothic/50 text-xs mb-8">one-time purchase</p>
+                <ul class="text-left space-y-3 mb-8 text-sm text-silver-gothic/70">
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-blood-red-gothic mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                        Full ensemble (3 pieces)
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-blood-red-gothic mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                        Bespoke tailored fit
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-blood-red-gothic mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                        3 private consultations
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-blood-red-gothic mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                        Signature blood-red lining
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-blood-red-gothic mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                        14-day delivery
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-blood-red-gothic mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                        Lifetime alterations
+                    </li>
+                </ul>
+                <a href="#" class="btn-gothic-primary w-full text-xs cursor-pointer">Select Noctis</a>
+            </div>
+
+            <!-- Tier 3 -->
+            <div class="gothic-card rounded-lg p-8 text-center relative cursor-pointer">
+                <div class="arch-corner tl"></div>
+                <div class="arch-corner tr"></div>
+                <div class="arch-corner bl"></div>
+                <div class="arch-corner br"></div>
+                <h3 class="font-gothic text-2xl text-off-white-gothic mb-2">Cathedral</h3>
+                <p class="text-silver-gothic/50 text-xs uppercase tracking-widest mb-6">Haute Couture</p>
+                <p class="text-4xl font-gothic text-blood-red-gothic mb-1">$2,499</p>
+                <p class="text-silver-gothic/50 text-xs mb-8">one-time purchase</p>
+                <ul class="text-left space-y-3 mb-8 text-sm text-silver-gothic/70">
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-blood-red-gothic mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                        Custom collection (5+ pieces)
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-blood-red-gothic mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                        Ultra-bespoke fit
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-blood-red-gothic mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                        Unlimited consultations
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-blood-red-gothic mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                        Rare materials &amp; gemstones
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-blood-red-gothic mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                        7-day rush delivery
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-blood-red-gothic mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                        Lifetime concierge
+                    </li>
+                </ul>
+                <a href="#" class="btn-gothic w-full text-xs cursor-pointer">Select Cathedral</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== FINAL CTA ===== -->
+<section id="cta" class="relative py-24 lg:py-32">
+    <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="gothic-card rounded-lg p-12 lg:p-16 relative">
+            <div class="arch-corner tl"></div>
+            <div class="arch-corner tr"></div>
+            <div class="arch-corner bl"></div>
+            <div class="arch-corner br"></div>
+
+            <p class="font-gothic text-blood-red-gothic text-lg tracking-widest uppercase mb-2">The Night Awaits</p>
+            <h2 class="font-gothic text-4xl sm:text-5xl lg:text-6xl text-off-white-gothic text-shadow-gothic">
+                Step Into the <span class="text-blood-red-gothic">Dark</span>
+            </h2>
+            <p class="mt-6 text-silver-gothic/70 text-lg max-w-2xl mx-auto leading-relaxed">
+                Book a private consultation with our master artisans and begin your journey into modern gothic elegance.
+            </p>
+
+            <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#" class="btn-gothic-primary text-sm cursor-pointer">Schedule Consultation</a>
+                <a href="#" class="btn-gothic text-sm cursor-pointer">View Lookbook</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer id="contact" class="relative border-t border-silver-gothic/10 py-16 lg:py-20">
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
+            <!-- Brand -->
+            <div>
+                <a href="#" class="flex items-center gap-3 mb-4 cursor-pointer">
+                    <svg class="w-7 h-7 text-blood-red-gothic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                        <path d="M2 17l10 5 10-5"/>
+                        <path d="M2 12l10 5 10-5"/>
+                    </svg>
+                    <span class="font-gothic text-2xl text-off-white-gothic">Noctis</span>
+                </a>
+                <p class="text-silver-gothic/50 text-sm leading-relaxed">
+                    Modern gothic fashion house. <br>
+                    Crafting darkness into elegance since 2024.
+                </p>
+                <div class="flex gap-3 mt-6">
+                    <!-- Instagram -->
+                    <a href="#" class="w-10 h-10 rounded-full border border-silver-gothic/20 flex items-center justify-center text-silver-gothic hover:text-blood-red-gothic hover:border-blood-red-gothic transition-all cursor-pointer" aria-label="Instagram">
+                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                    </a>
+                    <!-- Twitter/X -->
+                    <a href="#" class="w-10 h-10 rounded-full border border-silver-gothic/20 flex items-center justify-center text-silver-gothic hover:text-blood-red-gothic hover:border-blood-red-gothic transition-all cursor-pointer" aria-label="Twitter">
+                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4l11.733 16h4.267l-11.733 -16zM4 20l6.768 -6.768M17.232 4.768l-2.788 2.788"/></svg>
+                    </a>
+                    <!-- Pinterest -->
+                    <a href="#" class="w-10 h-10 rounded-full border border-silver-gothic/20 flex items-center justify-center text-silver-gothic hover:text-blood-red-gothic hover:border-blood-red-gothic transition-all cursor-pointer" aria-label="Pinterest">
+                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.237 2.636 7.855 6.356 9.312-.087-.79-.166-2.003.035-2.868l.636-2.694s-.16-.324-.16-.805c0-.754.437-1.316.98-1.316.462 0 .688.347.688.762 0 .465-.297 1.16-.45 1.804-.128.54.27.98.802.98.963 0 1.703-1.015 1.703-2.48 0-1.297-.932-2.204-2.263-2.204-1.542 0-2.448 1.157-2.448 2.352 0 .466.18.966.404 1.237a.163.163 0 01.038.156l-.16.646c-.025.107-.086.131-.196.078-.738-.343-1.197-1.42-1.197-2.285 0-1.86 1.352-3.57 3.899-3.57 2.046 0 3.637 1.458 3.637 3.408 0 2.034-1.282 3.671-3.063 3.671-.598 0-1.16-.31-1.353-.677l-.367 1.402c-.133.514-.492 1.158-.734 1.55.552.216 1.14.342 1.752.342 5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+                    </a>
+                    <!-- YouTube -->
+                    <a href="#" class="w-10 h-10 rounded-full border border-silver-gothic/20 flex items-center justify-center text-silver-gothic hover:text-blood-red-gothic hover:border-blood-red-gothic transition-all cursor-pointer" aria-label="YouTube">
+                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 12a29 29 0 00.46 5.58 2.78 2.78 0 001.94 2C5.12 20 12 20 12 20s6.88 0 8.6-.46a2.78 2.78 0 001.94-2A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <div>
+                <h4 class="font-gothic text-lg text-off-white-gothic mb-4">Navigate</h4>
+                <ul class="space-y-2">
+                    <li><a href="#features" class="text-sm text-silver-gothic/60 hover:text-blood-red-gothic transition-colors cursor-pointer">Collections</a></li>
+                    <li><a href="#testimonials" class="text-sm text-silver-gothic/60 hover:text-blood-red-gothic transition-colors cursor-pointer">Testimonials</a></li>
+                    <li><a href="#pricing" class="text-sm text-silver-gothic/60 hover:text-blood-red-gothic transition-colors cursor-pointer">Pricing</a></li>
+                    <li><a href="#cta" class="text-sm text-silver-gothic/60 hover:text-blood-red-gothic transition-colors cursor-pointer">Book Consultation</a></li>
+                </ul>
+            </div>
+
+            <!-- Legal -->
+            <div>
+                <h4 class="font-gothic text-lg text-off-white-gothic mb-4">Legal</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-sm text-silver-gothic/60 hover:text-blood-red-gothic transition-colors cursor-pointer">Privacy Policy</a></li>
+                    <li><a href="#" class="text-sm text-silver-gothic/60 hover:text-blood-red-gothic transition-colors cursor-pointer">Terms of Use</a></li>
+                    <li><a href="#" class="text-sm text-silver-gothic/60 hover:text-blood-red-gothic transition-colors cursor-pointer">Cookie Policy</a></li>
+                    <li><a href="#" class="text-sm text-silver-gothic/60 hover:text-blood-red-gothic transition-colors cursor-pointer">GDPR Compliance</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact & SEO -->
+            <div>
+                <h4 class="font-gothic text-lg text-off-white-gothic mb-4">Contact</h4>
+                <ul class="space-y-2">
+                    <li><a href="mailto:hello@noctis.com" class="text-sm text-silver-gothic/60 hover:text-blood-red-gothic transition-colors cursor-pointer">hello@noctis.com</a></li>
+                    <li><a href="tel:+15551234567" class="text-sm text-silver-gothic/60 hover:text-blood-red-gothic transition-colors cursor-pointer">+1 (555) 123-4567</a></li>
+                    <li class="text-sm text-silver-gothic/40">12 Raven Alley, Soho<br>London, UK</li>
+                </ul>
+                <div class="mt-6">
+                    <h4 class="font-gothic text-lg text-off-white-gothic mb-2">Discover</h4>
+                    <ul class="space-y-1">
+                        <li><a href="#" class="text-xs text-silver-gothic/50 hover:text-blood-red-gothic transition-colors cursor-pointer">Gothic Fashion Blog</a></li>
+                        <li><a href="#" class="text-xs text-silver-gothic/50 hover:text-blood-red-gothic transition-colors cursor-pointer">Style Guide</a></li>
+                        <li><a href="#" class="text-xs text-silver-gothic/50 hover:text-blood-red-gothic transition-colors cursor-pointer">Size Chart</a></li>
+                        <li><a href="#" class="text-xs text-silver-gothic/50 hover:text-blood-red-gothic transition-colors cursor-pointer">Sustainability</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom bar -->
+        <div class="mt-12 pt-8 border-t border-silver-gothic/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p class="text-silver-gothic/40 text-xs">&copy; 2026 Noctis. All rights reserved.</p>
+            <div class="flex gap-6">
+                <a href="#" class="text-xs text-silver-gothic/40 hover:text-blood-red-gothic transition-colors cursor-pointer">Privacy Policy</a>
+                <a href="#" class="text-xs text-silver-gothic/40 hover:text-blood-red-gothic transition-colors cursor-pointer">Terms of Use</a>
+                <a href="#" class="text-xs text-silver-gothic/40 hover:text-blood-red-gothic transition-colors cursor-pointer">Contact</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Mobile menu toggle -->
+<script>
+    (function() {
+        var btn = document.getElementById('mobile-menu-btn');
+        var menu = document.getElementById('mobile-menu');
+        if (btn && menu) {
+            btn.addEventListener('click', function() {
+                menu.classList.toggle('hidden');
+            });
+        }
+
+        // Navbar scroll effect
+        var nav = document.getElementById('navbar');
+        var ticking = false;
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    if (window.scrollY > 50) {
+                        nav.classList.add('navbar-scrolled');
+                    } else {
+                        nav.classList.remove('navbar-scrolled');
+                    }
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+            anchor.addEventListener('click', function(e) {
+                var target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth' });
+                    // Close mobile menu
+                    if (menu && !menu.classList.contains('hidden')) {
+                        menu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+    })();
+</script>
+
+</body>
+</html>
