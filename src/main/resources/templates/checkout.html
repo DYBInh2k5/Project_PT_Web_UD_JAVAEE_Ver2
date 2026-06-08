@@ -14,6 +14,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Thông tin giao hàng</h5>
+                        <!-- Form thông tin giao hàng -->
                         <form th:action="@{/cart/checkout}" method="post">
                             <div class="mb-3">
                                 <label class="form-label">Người nhận <span class="text-danger">*</span></label>
@@ -41,6 +42,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Đơn hàng của bạn</h5>
+                        <!-- Tóm tắt đơn hàng -->
                         <div th:each="item : ${cart.items}" class="d-flex justify-content-between mb-2">
                             <span th:text="${item.product.name} + ' x' + ${item.quantity}">Sách x1</span>
                             <span class="text-danger fw-bold">

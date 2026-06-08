@@ -11,6 +11,7 @@
         <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
         <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
 
+        <!-- Giỏ hàng trống -->
         <div th:if="${cart == null or cart.items.isEmpty()}" class="text-center py-5">
             <i class="fas fa-shopping-cart fa-4x" style="color: var(--blood-red); opacity: 0.5; margin-bottom: 1rem;"></i>
             <h4>Giỏ hàng trống</h4>
@@ -19,6 +20,7 @@
         </div>
 
         <div th:if="${cart != null and !cart.items.isEmpty()}">
+            <!-- Bảng giỏ hàng -->
             <div class="table-responsive">
                 <table class="table table-hover">
                         <tr>
@@ -51,6 +53,7 @@
                                 <th:block th:text="${#numbers.formatDecimal(item.product.price, 0, 'COMMA', 0, 'POINT')}"></th:block> VNĐ
                             </td>
                             <td class="align-middle">
+                                <!-- Form cập nhật số lượng -->
                                 <form th:action="@{'/cart/update/' + ${item.id}}" method="post" class="d-flex align-items-center">
                                     <input type="number" name="quantity" th:value="${item.quantity}" min="1"
                                            class="form-control form-control-sm" style="width: 80px;">
@@ -63,6 +66,7 @@
                                 <th:block th:text="${#numbers.formatDecimal(item.product.price * item.quantity, 0, 'COMMA', 0, 'POINT')}"></th:block> VNĐ
                             </td>
                             <td class="align-middle">
+                                <!-- Form xóa sản phẩm -->
                                 <form th:action="@{'/cart/remove/' + ${item.id}}" method="post">
                                     <button type="submit" class="btn btn-sm btn-danger"
                                             onclick="return confirm('Xóa sản phẩm này?')">
@@ -81,6 +85,7 @@
                         <i class="fas fa-arrow-left"></i> Tiếp tục mua sắm
                     </a>
                 </div>
+                <!-- Tổng tiền & thanh toán -->
                 <div class="col-md-6 text-end">
                     <h4>Tổng tiền: <span class="text-danger fw-bold" th:text="${#numbers.formatDecimal(total, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'">0</span></h4>
                     <a th:href="@{/cart/checkout}" class="btn btn-success btn-lg mt-2">

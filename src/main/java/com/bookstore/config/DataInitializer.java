@@ -32,14 +32,15 @@ public class DataInitializer implements CommandLineRunner {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    // Tự động chạy khi ứng dụng khởi động (nếu DB trống)
     @Override
     @Transactional
     public void run(String... args) {
-        if (userRepository.count() > 0) return;
+        if (userRepository.count() > 0) return;  // Nếu đã có dữ liệu thì bỏ qua
 
-        String encodedPassword = passwordEncoder.encode("123456");
+        String encodedPassword = passwordEncoder.encode("123456");  // Mật khẩu mặc định
 
-        // Users
+        // === NGƯỜI DÙNG ===
         userRepository.save(new User("admin", encodedPassword,
                 "Quản trị viên", "admin@bookstore.com", "0901234567",
                 "Số 1, Đường ABC, Quận 1, TP.HCM", "ADMIN"));
@@ -52,7 +53,7 @@ public class DataInitializer implements CommandLineRunner {
                 "Trần Thị B", "thib@gmail.com", "0923456789",
                 "Số 20, Đường Nguyễn Huệ, Quận Bình Thạnh, TP.HCM", "CUSTOMER"));
 
-        // Categories
+        // === DANH MỤC (8 loại) ===
         List<Category> categories = categoryRepository.saveAll(List.of(
                 new Category("Văn học Việt Nam"),
                 new Category("Văn học nước ngoài"),
@@ -73,7 +74,7 @@ public class DataInitializer implements CommandLineRunner {
         Category lichSu = categories.get(6);
         Category cntt = categories.get(7);
 
-        // Products
+        // === SẢN PHẨM (35 cuốn sách) ===
         List<Product> savedProducts = productRepository.saveAll(List.of(
                 new Product("Tôi thấy hoa vàng trên cỏ xanh", "Nguyễn Nhật Ánh",
                         "Truyện dài về tuổi thơ và tình cảm gia đình", 95000.0, 50, "book1.jpg", vanHocVN),
@@ -165,7 +166,7 @@ public class DataInitializer implements CommandLineRunner {
 
         LocalDateTime now = LocalDateTime.now();
 
-        // Orders
+        // === ĐƠN HÀNG (6 đơn) ===
         Order o1 = new Order(uA, 190000.0, "Nguyễn Văn A", "0912345678",
                 "Số 10, Đường Lê Lợi, Quận 1, TP.HCM");
         o1.setOrderDate(now.minusDays(1));
@@ -202,7 +203,7 @@ public class DataInitializer implements CommandLineRunner {
         o6.setStatus("PAID");
         o6 = orderRepository.save(o6);
 
-        // Order details
+        // === CHI TIẾT ĐƠN HÀNG (11 dòng) ===
         orderDetailRepository.saveAll(List.of(
                 new OrderDetail(o1, p1, 2, 95000.0),
                 new OrderDetail(o2, p6, 1, 79000.0),

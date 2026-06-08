@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import java.util.Collections;
 
+// Tích hợp Spring Security: nạp thông tin user từ DB khi đăng nhập
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 

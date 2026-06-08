@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+// Controller xem lịch sử và chi tiết đơn hàng (khách hàng)
 @Controller
 @RequestMapping("/order")
 public class OrderController {
@@ -29,6 +30,7 @@ public class OrderController {
         return userService.findByUsername(auth.getName());
     }
 
+    // Lịch sử đơn hàng của khách hàng (phân trang)
     @GetMapping("/history")
     public String orderHistory(Model model,
                                Authentication auth,
@@ -42,6 +44,7 @@ public class OrderController {
         return "order-history";
     }
 
+    // Xem chi tiết 1 đơn hàng (chỉ chủ sở hữu mới xem được)
     @GetMapping("/detail/{id}")
     public String orderDetail(@PathVariable Integer id, Model model, Authentication auth) {
         User user = getLoggedUser(auth);

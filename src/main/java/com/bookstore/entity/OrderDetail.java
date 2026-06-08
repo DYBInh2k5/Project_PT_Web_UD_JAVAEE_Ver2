@@ -2,26 +2,27 @@ package com.bookstore.entity;
 
 import jakarta.persistence.*;
 
+// Chi tiết từng sản phẩm trong đơn hàng
 @Entity
 @Table(name = "order_details")
 public class OrderDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer id;                     // ID tự tăng
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", nullable = false)
-    private Order order;
+    private Order order;                    // Đơn hàng cha
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", nullable = false)
-    private Product product;
+    private Product product;                // Sản phẩm được mua
 
     @Column(nullable = false)
-    private Integer quantity;
+    private Integer quantity;               // Số lượng mua
 
     @Column(nullable = false)
-    private Double price;
+    private Double price;                   // Giá tại thời điểm mua
 
     public OrderDetail() {}
 

@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
+// Controller admin: quản lý đơn hàng và xem doanh thu
 @Controller
 @RequestMapping("/admin/orders")
 public class OrderManageController {
@@ -20,6 +21,7 @@ public class OrderManageController {
     @Autowired
     private OrderService orderService;
 
+    // Danh sách đơn hàng (phân trang, mới nhất trước)
     @GetMapping
     public String list(Model model,
                        @RequestParam(defaultValue = "0") int page) {
@@ -30,6 +32,7 @@ public class OrderManageController {
         return "admin/orders";
     }
 
+    // Cập nhật trạng thái đơn hàng (NEW, SHIPPED, PAID)
     @PostMapping("/update-status")
     public String updateStatus(@RequestParam Integer orderId,
                                @RequestParam String status,
@@ -39,11 +42,13 @@ public class OrderManageController {
         return "redirect:/admin/orders";
     }
 
+    // Form xem doanh thu (GET: hiển thị form trống)
     @GetMapping("/revenue")
     public String revenueForm(Model model) {
         return "admin/revenue";
     }
 
+    // Xử lý xem doanh thu theo ngày (POST: nhận ngày, tính toán)
     @PostMapping("/revenue")
     public String revenue(@RequestParam String date, Model model) {
         LocalDate selectedDate = LocalDate.parse(date);

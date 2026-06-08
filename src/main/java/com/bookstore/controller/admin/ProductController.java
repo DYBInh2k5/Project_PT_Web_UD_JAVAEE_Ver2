@@ -18,6 +18,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.UUID;
 
+// Controller admin: quản lý sản phẩm (CRUD + upload ảnh)
 @Controller
 @RequestMapping("/admin/products")
 public class ProductController {
@@ -28,8 +29,10 @@ public class ProductController {
     @Autowired
     private CategoryService categoryService;
 
+    // Thư mục lưu ảnh (target/classes/static/images/ để Spring Boot serve được)
     private static final String UPLOAD_DIR = System.getProperty("user.dir") + "/target/classes/static/images/";
 
+    // Danh sách sản phẩm (phân trang, lọc theo tên/danh mục)
     @GetMapping
     public String list(Model model,
                        @RequestParam(defaultValue = "0") int page,
@@ -46,6 +49,7 @@ public class ProductController {
         return "admin/products";
     }
 
+    // Form thêm sản phẩm
     @GetMapping("/add")
     public String addForm(Model model) {
         Product product = new Product();
@@ -55,6 +59,7 @@ public class ProductController {
         return "admin/product-form";
     }
 
+    // Xử lý thêm sản phẩm (có upload ảnh)
     @PostMapping("/add")
     public String add(@ModelAttribute Product product,
                       @RequestParam("imageFile") MultipartFile imageFile,
@@ -73,6 +78,7 @@ public class ProductController {
         return "redirect:/admin/products";
     }
 
+    // Form sửa sản phẩm (load dữ liệu cũ)
     @GetMapping("/edit/{id}")
     public String editForm(@PathVariable Integer id, Model model) {
         Product product = productService.findById(id);
@@ -82,6 +88,7 @@ public class ProductController {
         return "admin/product-form";
     }
 
+    // Xử lý cập nhật sản phẩm
     @PostMapping("/edit/{id}")
     public String edit(@PathVariable Integer id,
                        @ModelAttribute Product product,
@@ -108,6 +115,7 @@ public class ProductController {
         return "redirect:/admin/products";
     }
 
+    // Xóa sản phẩm (xóa cả file ảnh trên disk)
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Integer id, RedirectAttributes ra) {
         try {
@@ -127,6 +135,7 @@ public class ProductController {
         return "redirect:/admin/products";
     }
 
+    // Lưu file ảnh upload vào thư mục, trả về tên file
     private String saveImage(MultipartFile file) throws IOException {
         File uploadDir = new File(UPLOAD_DIR);
         if (!uploadDir.exists()) uploadDir.mkdirs();

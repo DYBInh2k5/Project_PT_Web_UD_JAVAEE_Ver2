@@ -2,23 +2,24 @@ package com.bookstore.entity;
 
 import jakarta.persistence.*;
 
+// Một món hàng cụ thể trong giỏ (sản phẩm + số lượng)
 @Entity
 @Table(name = "cart_items")
 public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer id;                     // ID tự tăng
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cart_id", nullable = false)
-    private Cart cart;
+    private Cart cart;                      // Giỏ hàng chứa món này
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", nullable = false)
-    private Product product;
+    private Product product;                // Sản phẩm được chọn
 
     @Column(nullable = false)
-    private Integer quantity;
+    private Integer quantity;               // Số lượng mua
 
     public CartItem() {}
 

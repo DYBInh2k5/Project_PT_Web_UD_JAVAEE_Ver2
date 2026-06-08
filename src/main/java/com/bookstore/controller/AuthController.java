@@ -12,23 +12,27 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+// Controller xử lý đăng nhập, đăng ký
 @Controller
 public class AuthController {
 
     @Autowired
     private UserService userService;
 
+    // Hiển thị form đăng nhập (Spring Security xử lý POST /login tự động)
     @GetMapping("/login")
     public String login() {
         return "login";
     }
 
+    // Hiển thị form đăng ký
     @GetMapping("/register")
     public String registerForm(Model model) {
         model.addAttribute("user", new RegisterDto());
         return "register";
     }
 
+    // Xử lý đăng ký tài khoản mới
     @PostMapping("/register")
     public String register(@Valid @ModelAttribute("user") RegisterDto dto,
                            BindingResult result, Model model) {

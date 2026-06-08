@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
+// Controller cho trang chủ và cửa hàng (public)
 @Controller
 public class HomeController {
 
@@ -21,6 +22,7 @@ public class HomeController {
     @Autowired
     private CategoryService categoryService;
 
+    // Trang chủ: hiển thị danh sách sản phẩm (phân trang, lọc, sắp xếp)
     @GetMapping("/")
     public String home(Model model,
                        @RequestParam(defaultValue = "0") int page,
@@ -40,6 +42,7 @@ public class HomeController {
         return "index";
     }
 
+    // Trang cửa hàng (alias của trang chủ, cùng chức năng)
     @GetMapping("/shop")
     public String shop(Model model,
                        @RequestParam(defaultValue = "0") int page,

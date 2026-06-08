@@ -3,36 +3,37 @@ package com.bookstore.entity;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+// Lưu thông tin người dùng (admin và khách hàng)
 @Entity
 @Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer id;                     // ID tự tăng
 
     @Column(nullable = false, unique = true, columnDefinition = "NVARCHAR(50)")
-    private String username;
+    private String username;                // Tên đăng nhập (duy nhất)
 
     @Column(nullable = false, length = 255)
-    private String password;
+    private String password;                // Mật khẩu (đã mã hóa BCrypt)
 
     @Column(nullable = false, columnDefinition = "NVARCHAR(100)")
-    private String fullName;
+    private String fullName;                // Họ tên đầy đủ
 
     @Column(columnDefinition = "NVARCHAR(100)")
-    private String email;
+    private String email;                   // Email (không bắt buộc)
 
     @Column(length = 20)
-    private String phone;
+    private String phone;                   // Số điện thoại
 
     @Column(columnDefinition = "NVARCHAR(255)")
-    private String address;
+    private String address;                 // Địa chỉ giao hàng
 
     @Column(nullable = false, columnDefinition = "NVARCHAR(20)")
-    private String role;
+    private String role;                    // Vai trò: "ADMIN" hoặc "CUSTOMER"
 
     @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt;        // Ngày tạo tài khoản
 
     @PrePersist
     protected void onCreate() {

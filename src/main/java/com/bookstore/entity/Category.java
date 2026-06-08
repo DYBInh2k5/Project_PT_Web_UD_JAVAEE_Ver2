@@ -3,18 +3,19 @@ package com.bookstore.entity;
 import jakarta.persistence.*;
 import java.util.List;
 
+// Lưu danh mục sách (VD: Kinh tế, Văn học, Khoa học...)
 @Entity
 @Table(name = "categories")
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer id;                     // ID tự tăng
 
     @Column(nullable = false, unique = true, columnDefinition = "NVARCHAR(100)")
-    private String name;
+    private String name;                    // Tên danh mục (duy nhất)
 
     @OneToMany(mappedBy = "category")
-    private List<Product> products;
+    private List<Product> products;         // Danh sách sách thuộc danh mục này
 
     public Category() {}
 

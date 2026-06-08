@@ -5,37 +5,38 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+// Đơn hàng sau khi khách thanh toán
 @Entity
 @Table(name = "orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer id;                     // ID tự tăng
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private User user;                      // Khách hàng đặt
 
     @Column(name = "order_date", nullable = false)
-    private LocalDateTime orderDate;
+    private LocalDateTime orderDate;        // Ngày đặt hàng
 
     @Column(name = "total_amount", nullable = false)
-    private Double totalAmount;
+    private Double totalAmount;             // Tổng tiền
 
     @Column(nullable = false, columnDefinition = "NVARCHAR(20)")
-    private String status;
+    private String status;                  // Trạng thái: NEW / SHIPPED / PAID
 
     @Column(name = "recipient_name", columnDefinition = "NVARCHAR(100)")
-    private String recipientName;
+    private String recipientName;           // Tên người nhận
 
     @Column(length = 20)
-    private String phone;
+    private String phone;                   // SĐT người nhận
 
     @Column(columnDefinition = "NVARCHAR(255)")
-    private String address;
+    private String address;                 // Địa chỉ giao hàng
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OrderDetail> orderDetails = new ArrayList<>();
+    private List<OrderDetail> orderDetails = new ArrayList<>();  // Chi tiết đơn hàng
 
     @PrePersist
     protected void onCreate() {

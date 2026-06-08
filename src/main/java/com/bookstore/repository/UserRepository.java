@@ -7,6 +7,8 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
+    // Tìm user theo tên đăng nhập (dùng cho login)
     Optional<User> findByUsername(String username);
+    // Kiểm tra username đã tồn tại chưa (dùng cho đăng ký)
     boolean existsByUsername(String username);
 }

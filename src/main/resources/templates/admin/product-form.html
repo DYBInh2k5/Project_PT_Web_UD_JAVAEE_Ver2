@@ -6,6 +6,7 @@
 
     <div class="container-fluid">
         <div class="row">
+            <!-- Sidebar quản trị -->
             <div class="col-md-2 sidebar">
                 <h5><i class="fas fa-tachometer-alt me-2"></i>Quản trị</h5>
                 <ul class="nav flex-column">
@@ -23,6 +24,7 @@
 
                 <div class="card mt-3">
                     <div class="card-body">
+                        <!-- Form thêm/sửa sản phẩm -->
                         <form th:action="${product.id == null} ? @{/admin/products/add} : @{/admin/products/edit/{id}(id=${product.id})}"
                               method="post" enctype="multipart/form-data">
                             <div class="mb-3">

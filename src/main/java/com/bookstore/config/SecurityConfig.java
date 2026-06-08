@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+// Cấu hình bảo mật Spring Security: phân quyền, login, logout
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -19,11 +20,13 @@ public class SecurityConfig {
     @Autowired
     private CustomUserDetailsService userDetailsService;
 
+    // Mã hóa mật khẩu bằng BCrypt
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    // Xác thực dùng UserDetailsService + PasswordEncoder
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -32,15 +35,16 @@ public class SecurityConfig {
         return authProvider;
     }
 
+    // Cấu hình phân quyền URL, form login, logout
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(config -> config
-                .requestMatchers("/admin/**").hasRole("ADMIN")
+                .requestMatchers("/admin/**").hasRole("ADMIN")           // Chỉ admin
                 .requestMatchers("/cart/**").hasAnyRole("CUSTOMER", "ADMIN")
                 .requestMatchers("/order/**").hasAnyRole("CUSTOMER", "ADMIN")
                 .requestMatchers("/register", "/login", "/css/**", "/js/**", "/images/**", "/").permitAll()
-                .requestMatchers("/shop/**", "/api/**").permitAll()
+                .requestMatchers("/shop/**", "/api/**").permitAll()      // Public
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form

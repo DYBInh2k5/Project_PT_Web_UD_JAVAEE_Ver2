@@ -6,6 +6,7 @@
 
     <div class="container-fluid">
         <div class="row">
+            <!-- Sidebar quản trị -->
             <div class="col-md-2 sidebar">
                 <h5><i class="fas fa-tachometer-alt me-2"></i>Quản trị</h5>
                 <ul class="nav flex-column">
@@ -20,6 +21,7 @@
 
                 <div class="card mt-3">
                     <div class="card-body">
+                        <!-- Bộ lọc ngày xem doanh thu -->
                         <form th:action="@{/admin/orders/revenue}" method="post" class="row g-2">
                             <div class="col-md-4">
                                 <label class="form-label">Chọn ngày</label>
@@ -34,6 +36,7 @@
                     </div>
                 </div>
 
+                <!-- Thống kê doanh thu -->
                 <div th:if="${revenue != null}" class="mt-4">
                     <div class="row">
                         <div class="col-md-4 mb-3">
@@ -68,6 +71,7 @@
                         </div>
                     </div>
 
+                    <!-- Biểu đồ doanh thu -->
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Biểu đồ doanh thu 7 ngày</h5>

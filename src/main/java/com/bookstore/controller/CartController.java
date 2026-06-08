@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+// Controller quản lý giỏ hàng: xem, thêm, sửa, xóa, thanh toán
 @Controller
 @RequestMapping("/cart")
 public class CartController {
@@ -25,11 +26,13 @@ public class CartController {
     @Autowired
     private OrderService orderService;
 
+    // Lấy user đang đăng nhập từ Spring Security
     private User getLoggedUser(Authentication auth) {
         if (auth == null || !auth.isAuthenticated()) return null;
         return userService.findByUsername(auth.getName());
     }
 
+    // Xem giỏ hàng (yêu cầu đăng nhập)
     @GetMapping
     public String viewCart(Model model, Authentication auth) {
         User user = getLoggedUser(auth);
@@ -42,6 +45,7 @@ public class CartController {
         return "cart";
     }
 
+    // Thêm sản phẩm vào giỏ (yêu cầu đăng nhập)
     @PostMapping("/add/{productId}")
     public String addToCart(@PathVariable Integer productId,
                             @RequestParam(defaultValue = "1") int quantity,
@@ -60,6 +64,7 @@ public class CartController {
         return "redirect:/cart";
     }
 
+    // Cập nhật số lượng 1 món trong giỏ
     @PostMapping("/update/{itemId}")
     public String updateQuantity(@PathVariable Integer itemId,
                                  @RequestParam int quantity) {
@@ -67,12 +72,14 @@ public class CartController {
         return "redirect:/cart";
     }
 
+    // Xóa 1 món khỏi giỏ
     @PostMapping("/remove/{itemId}")
     public String removeItem(@PathVariable Integer itemId) {
         cartService.removeItem(itemId);
         return "redirect:/cart";
     }
 
+    // Hiển thị form thanh toán (yêu cầu login, giỏ không được rỗng)
     @GetMapping("/checkout")
     public String checkoutForm(Model model, Authentication auth) {
         User user = getLoggedUser(auth);
@@ -87,6 +94,7 @@ public class CartController {
         return "checkout";
     }
 
+    // Xử lý thanh toán: tạo đơn hàng, xóa giỏ
     @PostMapping("/checkout")
     public String checkout(@RequestParam String recipientName,
                            @RequestParam String phone,

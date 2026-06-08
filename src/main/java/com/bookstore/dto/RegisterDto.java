@@ -3,6 +3,7 @@ package com.bookstore.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+// DTO nhận dữ liệu từ form đăng ký (có validation)
 public class RegisterDto {
     @NotBlank(message = "Tên đăng nhập không được để trống")
     @Size(min = 3, max = 50, message = "Tên đăng nhập từ 3-50 ký tự")

@@ -1,15 +1,17 @@
+/* ===== GOTHIC MODERNO THEME - BookStore ===== */
+/* Chủ đề tối Gothic: Onyx Black nền, Blood Red điểm nhấn, Silver viền */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=UnifrakturMaguntia&display=swap');
 
 :root {
-    --onyx-black: #1A1A1A;
-    --blood-red: #8B0000;
-    --silver: #C0C0C0;
-    --off-white: #F5F5F5;
-    --deep-purple: #480048;
-    --forest-green: #228B22;
-    --white: #FFFFFF;
-    --dark-surface: #141414;
-    --card-bg: #1E1E1E;
+    --onyx-black: #1A1A1A;      /* Nền chính */
+    --blood-red: #8B0000;       /* Màu nhấn, nút, hover */
+    --silver: #C0C0C0;          /* Viền, chữ phụ */
+    --off-white: #F5F5F5;       /* Chữ nội dung */
+    --deep-purple: #480048;     /* Footer, điểm nhấn phụ */
+    --forest-green: #228B22;    /* Trạng thái thành công, còn hàng */
+    --white: #FFFFFF;           /* Chữ nổi bật */
+    --dark-surface: #141414;    /* Nền tối hơn */
+    --card-bg: #1E1E1E;        /* Nền thẻ */
     --danger: #8B0000;
     --success: #228B22;
 }

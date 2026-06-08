@@ -10,12 +10,13 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
+    // Tìm sản phẩm theo tên (không phân biệt hoa thường, có phân trang)
     Page<Product> findByNameContainingIgnoreCase(String name, Pageable pageable);
-
+    // Tìm sản phẩm theo danh mục
     Page<Product> findByCategoryId(Integer categoryId, Pageable pageable);
-
+    // Tìm theo cả tên lẫn danh mục
     Page<Product> findByNameContainingIgnoreCaseAndCategoryId(String name, Integer categoryId, Pageable pageable);
-
+    // Query linh hoạt: lọc theo tên VÀ danh mục (cả 2 đều có thể null)
     @Query(value = "SELECT p FROM Product p WHERE " +
            "(:name IS NULL OR LOWER(p.name) LIKE LOWER(CONCAT('%', :name, '%'))) " +
            "AND (:categoryId IS NULL OR p.category.id = :categoryId)",

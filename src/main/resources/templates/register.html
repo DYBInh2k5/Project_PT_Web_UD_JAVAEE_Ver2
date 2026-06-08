@@ -12,6 +12,7 @@
 
                         <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
 
+                        <!-- Form đăng ký -->
                         <form th:action="@{/register}" th:object="${user}" method="post">
                             <div class="mb-3">
                                 <label class="form-label">Tên đăng nhập <span class="text-danger">*</span></label>
@@ -47,6 +48,7 @@
                             </div>
                         </form>
 
+                        <!-- Link đăng nhập -->
                         <div class="text-center mt-3">
                             <p>Đã có tài khoản? <a th:href="@{/login}">Đăng nhập</a></p>
                         </div>

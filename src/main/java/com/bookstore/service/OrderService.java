@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
 
+// Xử lý logic đơn hàng: tạo đơn, cập nhật trạng thái, thống kê doanh thu
 @Service
 public class OrderService {
 
@@ -24,6 +25,7 @@ public class OrderService {
     @Autowired
     private ProductService productService;
 
+    // Tạo đơn hàng từ giỏ hàng (kiểm tra tồn kho, trừ hàng, xóa giỏ)
     @Transactional
     public Order createOrder(User user, Cart cart, String recipientName, String phone, String address) {
         Order order = new Order();
@@ -52,22 +54,26 @@ public class OrderService {
         order.setTotalAmount(total);
         order = orderRepository.save(order);
 
-        cartService.clearCart(cart);
+        cartService.clearCart(cart);   // Xóa giỏ hàng sau khi thanh toán
         return order;
     }
 
+    // Lấy đơn hàng của 1 user (phân trang)
     public Page<Order> findByUser(Integer userId, int page, int size) {
         return orderRepository.findByUserIdOrderByOrderDateDesc(userId, PageRequest.of(page, size));
     }
 
+    // Lấy tất cả đơn hàng (admin, phân trang)
     public Page<Order> findAll(int page, int size) {
         return orderRepository.findAllByOrderByOrderDateDesc(PageRequest.of(page, size));
     }
 
+    // Tìm đơn hàng theo ID
     public Order findById(Integer id) {
         return orderRepository.findById(id).orElse(null);
     }
 
+    // Cập nhật trạng thái đơn hàng (NEW, SHIPPED, PAID)
     public void updateStatus(Integer orderId, String status) {
         Order order = findById(orderId);
         if (order != null) {
@@ -76,24 +82,28 @@ public class OrderService {
         }
     }
 
+    // Tính tổng doanh thu của 1 ngày
     public Double getRevenueByDay(LocalDate date) {
         LocalDateTime start = date.atStartOfDay();
         LocalDateTime end = date.atTime(LocalTime.MAX);
         return orderRepository.getRevenueBetween(start, end);
     }
 
+    // Tính tổng doanh thu của 1 tháng
     public Double getRevenueByMonth(int year, int month) {
         LocalDateTime start = LocalDateTime.of(year, month, 1, 0, 0);
         LocalDateTime end = start.plusMonths(1);
         return orderRepository.getRevenueBetween(start, end);
     }
 
+    // Tính tổng doanh thu của 1 năm
     public Double getRevenueByYear(int year) {
         LocalDateTime start = LocalDateTime.of(year, 1, 1, 0, 0);
         LocalDateTime end = start.plusYears(1);
         return orderRepository.getRevenueBetween(start, end);
     }
 
+    // Lấy doanh thu 7 ngày gần nhất (dùng cho biểu đồ cột)
     public List<Map<String, Object>> getDailyRevenue7Days(LocalDate date) {
         LocalDateTime start = date.minusDays(6).atStartOfDay();
         LocalDateTime end = date.atTime(LocalTime.MAX);
@@ -107,6 +117,7 @@ public class OrderService {
             revenueMap.put(d, total);
         }
 
+        // Tạo list 7 ngày (từ 6 ngày trước đến ngày hiện tại)
         List<Map<String, Object>> dailyList = new ArrayList<>();
         for (int i = 6; i >= 0; i--) {
             LocalDate d = date.minusDays(i);
