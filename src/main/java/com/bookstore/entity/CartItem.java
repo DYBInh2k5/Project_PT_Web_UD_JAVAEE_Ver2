@@ -2,24 +2,35 @@ package com.bookstore.entity;
 
 import jakarta.persistence.*;
 
-// Một món hàng cụ thể trong giỏ (sản phẩm + số lượng)
+// Lớp thực thể đại diện cho một món hàng cụ thể trong giỏ hàng của hệ thống BookStore, kết hợp giữa sản phẩm (Product)
+// và số lượng tương ứng. Entity này ánh xạ tới bảng "cart_items". Mỗi CartItem thuộc về một giỏ hàng (Cart) và tham chiếu
+// đến một sản phẩm (Product) cụ thể. Đây là bảng trung gian thực hiện quan hệ nhiều-nhiều giữa Cart và Product.
+// Quan hệ chính:
+// - Nhiều CartItem thuộc một Cart (ManyToOne).
+// - Nhiều CartItem tham chiếu một Product (ManyToOne).
 @Entity
 @Table(name = "cart_items")
 public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;                     // ID tự tăng
+    private Integer id;                     // ID tự tăng, khóa chính của bảng cart_items, được sinh tự động bởi cơ sở dữ liệu
 
+    // Quan hệ ManyToOne với Cart: nhiều món hàng có thể thuộc về một giỏ hàng.
+    // FetchType.LAZY giúp trì hoãn load giỏ hàng cho đến khi thực sự cần.
+    // @JoinColumn ánh xạ tới khóa ngoại "cart_id", không được null.
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cart_id", nullable = false)
-    private Cart cart;                      // Giỏ hàng chứa món này
+    private Cart cart;                      // Giỏ hàng chứa món hàng này, khóa ngoại tham chiếu đến bảng carts
 
+    // Quan hệ ManyToOne với Product: nhiều món hàng trong giỏ có thể tham chiếu đến cùng một sản phẩm.
+    // FetchType.LAZY giúp trì hoãn load sản phẩm cho đến khi thực sự cần.
+    // @JoinColumn ánh xạ tới khóa ngoại "product_id", không được null.
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", nullable = false)
-    private Product product;                // Sản phẩm được chọn
+    private Product product;                // Sản phẩm được chọn, khóa ngoại tham chiếu đến bảng products
 
     @Column(nullable = false)
-    private Integer quantity;               // Số lượng mua
+    private Integer quantity;               // Số lượng sản phẩm mà người dùng muốn mua, phải là số dương, không được null
 
     public CartItem() {}
 

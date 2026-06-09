@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
-// Controller cho trang chủ và cửa hàng (public)
+// Controller cho trang chủ và cửa hàng (public, không yêu cầu đăng nhập)
+// Xử lý các URL: GET / (trang chủ), GET /shop (trang cửa hàng)
+// Phụ thuộc: ProductService (truy vấn sản phẩm), CategoryService (truy vấn danh mục)
 @Controller
 public class HomeController {
 
@@ -22,7 +24,13 @@ public class HomeController {
     @Autowired
     private CategoryService categoryService;
 
-    // Trang chủ: hiển thị danh sách sản phẩm (phân trang, lọc, sắp xếp)
+    // Xử lý GET / - Trang chủ: hiển thị danh sách sản phẩm với phân trang, lọc theo tên/danh mục, sắp xếp
+    // Tham số: page (số trang, mặc định 0), name (lọc theo tên, không bắt buộc),
+    //          category (lọc theo ID danh mục, không bắt buộc), sort (sắp xếp, không bắt buộc)
+    // B1: Lấy toàn bộ danh mục để hiển thị bộ lọc
+    // B2: Gọi ProductService.findFiltered() để lấy trang sản phẩm theo điều kiện (12 sản phẩm/trang)
+    // B3: Đưa tất cả dữ liệu vào Model để Thymeleaf render
+    // B4: Trả về template "index"
     @GetMapping("/")
     public String home(Model model,
                        @RequestParam(defaultValue = "0") int page,
@@ -42,7 +50,13 @@ public class HomeController {
         return "index";
     }
 
-    // Trang cửa hàng (alias của trang chủ, cùng chức năng)
+    // Xử lý GET /shop - Trang cửa hàng (alias của trang chủ, cùng chức năng)
+    // Tham số: page (số trang, mặc định 0), name (lọc theo tên, không bắt buộc),
+    //          category (lọc theo ID danh mục, không bắt buộc), sort (sắp xếp, không bắt buộc)
+    // B1: Lấy toàn bộ danh mục để hiển thị bộ lọc
+    // B2: Gọi ProductService.findFiltered() để lấy trang sản phẩm (12 sản phẩm/trang)
+    // B3: Đưa dữ liệu vào Model để Thymeleaf render
+    // B4: Trả về template "shop" (khác template "index" ở trang chủ)
     @GetMapping("/shop")
     public String shop(Model model,
                        @RequestParam(defaultValue = "0") int page,

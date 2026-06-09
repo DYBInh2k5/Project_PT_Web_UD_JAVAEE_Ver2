@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-// Controller xem lịch sử và chi tiết đơn hàng (khách hàng)
+// Controller xem lịch sử và chi tiết đơn hàng (dành cho khách hàng đã đăng nhập)
+// Base URL: /order - Yêu cầu người dùng phải đăng nhập (Authentication object được inject)
+// Phụ thuộc: OrderService (truy vấn đơn hàng), UserService (lấy thông tin user từ authentication)
 @Controller
 @RequestMapping("/order")
 public class OrderController {
@@ -25,12 +27,20 @@ public class OrderController {
     @Autowired
     private UserService userService;
 
+    // Helper: Lấy thông tin User đang đăng nhập từ Spring Security Authentication
+    // Authentication.getName() trả về username đã xác thực -> truy vấn User từ database
+    // Nếu auth null hoặc chưa xác thực -> trả về null (chưa đăng nhập)
     private User getLoggedUser(Authentication auth) {
         if (auth == null || !auth.isAuthenticated()) return null;
         return userService.findByUsername(auth.getName());
     }
 
-    // Lịch sử đơn hàng của khách hàng (phân trang)
+    // Xử lý GET /order/history - Lịch sử đơn hàng của khách hàng (phân trang, 10 đơn/trang)
+    // Tham số: page (số trang, mặc định 0)
+    // B1: Lấy user đăng nhập, nếu null redirect /login
+    // B2: Gọi OrderService.findByUser(userId, page, 10) để lấy trang đơn hàng
+    // B3: Đưa danh sách đơn hàng + thông tin phân trang vào Model
+    // B4: Trả về template "order-history"
     @GetMapping("/history")
     public String orderHistory(Model model,
                                Authentication auth,
@@ -44,7 +54,13 @@ public class OrderController {
         return "order-history";
     }
 
-    // Xem chi tiết 1 đơn hàng (chỉ chủ sở hữu mới xem được)
+    // Xử lý GET /order/detail/{id} - Xem chi tiết một đơn hàng (chỉ chủ sở hữu mới xem được)
+    // Tham số: id (ID của đơn hàng từ URL path)
+    // B1: Lấy user đăng nhập, nếu null redirect /login
+    // B2: Tìm Order theo id, nếu null hoặc không thuộc về user hiện tại -> redirect /order/history
+    //     (Kiểm tra order.getUser().getId().equals(user.getId()) để đảm bảo chỉ chủ sở hữu xem được)
+    // B3: Đưa đối tượng order vào Model (kèm danh sách OrderItem)
+    // B4: Trả về template "order-detail"
     @GetMapping("/detail/{id}")
     public String orderDetail(@PathVariable Integer id, Model model, Authentication auth) {
         User user = getLoggedUser(auth);
