@@ -19,7 +19,6 @@ BookStore/
 ├── src/main/java/com/bookstore/
 │   ├── BookStoreApplication.java       # Điểm khởi đầu ứng dụng Spring Boot
 │   ├── config/                         # Cấu hình ứng dụng
-│   │   ├── DataInitializer.java        # Tạo dữ liệu mẫu khi chạy lần đầu
 │   │   ├── SecurityConfig.java         # Cấu hình bảo mật (login, phân quyền)
 │   │   └── WebMvcConfig.java           # Cấu hình Spring MVC (static resources)
 │   ├── controller/
@@ -79,7 +78,7 @@ BookStore/
 │           ├── product-form.html       # Thêm/sửa sản phẩm
 │           ├── orders.html             # Quản lý đơn hàng
 │           └── revenue.html            # Thống kê doanh thu + biểu đồ
-├── database.sql                        # Script tạo database + seed data
+├── database.sql                        # Script SQL tạo DB + seed dữ liệu (chạy trong SSMS)
 ├── DESIGN.md                           # Design system Gothic Moderno
 ├── YEU_CAU.md                          # Yêu cầu chức năng
 └── .gitignore                          # Git ignore (target/, .idea, *.log...)
@@ -341,14 +340,18 @@ BookStore/
 - **Đường dẫn**: `src/main/java/com/bookstore/config/WebMvcConfig.java`
 - **Chức năng**: Cấu hình Spring MVC — map URL pattern `/css/**`, `/js/**`, `/images/**` đến thư mục static tương ứng.
 
-#### `DataInitializer.java`
-- **Đường dẫn**: `src/main/java/com/bookstore/config/DataInitializer.java`
-- **Chức năng**: Tự động tạo dữ liệu mẫu khi ứng dụng khởi động lần đầu (nếu DB trống).
-- **Dữ liệu seed**:
-  - 3 user: 1 admin + 2 customers (mật khẩu "123456" mã hóa BCrypt).
-  - 8 category: Văn học Việt Nam, Văn học nước ngoài, Khoa học, Kinh tế, Kỹ năng sống, Thiếu nhi, Lịch sử, Công nghệ thông tin.
-  - 35 sản phẩm sách (từ các category khác nhau, mỗi sản phẩm có ảnh book1.jpg - book35.jpg).
-  - 6 đơn hàng + 2 đơn đã hủy (status = SHIPPED/PAID/NEW) với chi tiết đơn hàng.
+#### `database.sql` (tại thư mục gốc dự án)
+- **Đường dẫn**: `database.sql` (BookStore/database.sql)
+- **Chức năng**: Script SQL tạo toàn bộ database + seed dữ liệu mẫu. Chạy thủ công trong SQL Server Management Studio.
+- **Nội dung script**:
+  - Tạo database `BookStore` (nếu chưa có)
+  - Xóa bảng cũ (nếu có) theo thứ tự khóa ngoại
+  - Tạo 7 bảng: `users`, `categories`, `products`, `carts`, `cart_items`, `orders`, `order_details`
+  - Chèn 3 user: admin (role = ADMIN), nguyenvana + tranthib (role = CUSTOMER) — mật khẩu "123456" (BCrypt)
+  - Chèn 8 danh mục sách
+  - Chèn 35 sản phẩm (book1.jpg → book35.jpg)
+  - Chèn 6 đơn hàng với ngày lùi dần từ 1-7 ngày (trạng thái: NEW, SHIPPED, PAID)
+  - Chèn 11 dòng chi tiết đơn hàng
 
 ---
 
@@ -363,7 +366,7 @@ BookStore/
 ### 8. Cấu hình (`application.properties`)
 
 - **Đường dẫn**: `src/main/resources/application.properties`
-- **Chức năng**: Cấu hình server port (8080), kết nối SQL Server (localhost\SQLEXPRESS, database=BookStore), JPA Hibernate (ddl-auto=update), Thymeleaf (cache=false cho dev, UTF-8), upload file (10MB), tắt data.sql (dùng DataInitializer).
+- **Chức năng**: Cấu hình server port (8080), kết nối SQL Server (localhost\SQLEXPRESS, database=BookStore), JPA Hibernate (ddl-auto=update), Thymeleaf (cache=false cho dev, UTF-8), upload file (10MB). Seed dữ liệu bằng `database.sql` (chạy thủ công trong SSMS).
 
 ---
 
@@ -468,7 +471,7 @@ BookStore/
 - SQL Server: `localhost\SQLEXPRESS:1433`
 - Database: `BookStore`
 - User: `sa` / `123456`
-- Seed data: 1 admin + 2 customers, 8 categories, 35 products, 6+ orders (tự động insert qua `DataInitializer.java`)
+- Seed data: 1 admin + 2 customers, 8 categories, 35 products, 6+ orders (chạy `database.sql` trong SSMS để tạo)
 
 ## Cài đặt & Chạy
 
@@ -477,8 +480,14 @@ BookStore/
 - Maven 3.8+
 - SQL Server (có sẵn `BookStore` database)
 
-### Bước 1: Tạo database
-Chạy script `database.sql` trong SQL Server Management Studio.
+### Bước 1: Tạo database + seed dữ liệu
+Mở SQL Server Management Studio, chạy toàn bộ file `database.sql` (File → Open → chọn file → Execute).
+
+Script này sẽ:
+- Tạo database `BookStore` (nếu chưa có)
+- Tạo 7 bảng: users, categories, products, carts, cart_items, orders, order_details
+- Chèn dữ liệu mẫu: 3 user (admin + 2 khách), 8 danh mục, 35 sản phẩm, 6 đơn hàng
+- Mật khẩu mặc định cho tất cả tài khoản: **123456** (đã mã hóa BCrypt)
 
 ### Bước 2: Chạy ứng dụng
 ```bash
@@ -550,7 +559,8 @@ Giao diện theo phong cách **Gothic Moderno**:
 
 ## Lưu ý kỹ thuật
 1. **Ảnh sản phẩm**: Upload qua admin được lưu tại `target/classes/static/images/`. Khi chạy `mvn spring-boot:run`, Spring Boot serve static từ `target/classes/static/`, ảnh hiển thị ngay lập tức.
-2. **Seed dữ liệu**: `DataInitializer.java` tự động chạy khi DB trống. Nếu muốn reseed, xóa dữ liệu cũ hoặc set `spring.jpa.hibernate.ddl-auto=create`.
+2. **Seed dữ liệu**: Chạy `database.sql` trong SQL Server Management Studio. Nếu muốn reseed, chạy lại script này (sẽ xóa dữ liệu cũ và tạo mới).
 3. **Comment code**: Tất cả các file Java, template, CSS, JS đều có comment tiếng Việt chi tiết giải thích từng lớp, method, trường dữ liệu.
-4. **Mật khẩu mặc định**: `123456` (đã mã hóa BCrypt).
-5. **Encoding**: UTF-8 cho toàn bộ ứng dụng (form, Thymeleaf, database dùng NVARCHAR).
+4. **Seed dữ liệu**: Chạy `database.sql` trong SSMS trước khi khởi động app lần đầu. Script tạo database + bảng + dữ liệu mẫu (3 user, 8 danh mục, 35 sản phẩm, 6 đơn hàng).
+5. **Mật khẩu mặc định**: `123456` (đã mã hóa BCrypt).
+6. **Encoding**: UTF-8 cho toàn bộ ứng dụng (form, Thymeleaf, database dùng NVARCHAR).
