@@ -83,15 +83,14 @@
         </div>
     </div>
 
-    <script th:if="${revenue != null}" th:inline="javascript">
-        /*<![CDATA[*/
+    <script th:if="${revenue != null}" th:inline="text">
         document.addEventListener('DOMContentLoaded', function() {
             if (typeof Chart === 'undefined') {
                 console.error('Chart.js not loaded!');
                 return;
             }
-            var labels = /*[(${revenue.dailyRevenueList.![label]})]*/ [];
-            var values = /*[(${revenue.dailyRevenueList.![revenue]})]*/ [];
+            var labels = JSON.parse('${labelsJson}');
+            var values = JSON.parse('${valuesJson}');
             var ctx = document.getElementById('revenueChart').getContext('2d');
             new Chart(ctx, {
                 type: 'bar',
@@ -129,7 +128,6 @@
                 }
             });
         });
-        /*]]>*/
     </script>
 
     <div th:replace="layout::footer"></div>

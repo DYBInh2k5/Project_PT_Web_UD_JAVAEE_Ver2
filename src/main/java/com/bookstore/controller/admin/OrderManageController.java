@@ -9,9 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 // Controller admin: quản lý đơn hàng và xem doanh thu - yêu cầu quyền ADMIN
 // Base URL: /admin/orders - Spring Security chặn tất cả URL /admin/** yêu cầu role ADMIN
@@ -78,6 +81,18 @@ public class OrderManageController {
         dto.setMonthRevenue(orderService.getRevenueByMonth(selectedDate.getYear(), selectedDate.getMonthValue()));
         dto.setYearRevenue(orderService.getRevenueByYear(selectedDate.getYear()));
         dto.setDailyRevenueList(orderService.getDailyRevenue7Days(selectedDate));
+
+        ObjectMapper mapper = new ObjectMapper();
+        List<Map<String, Object>> list = dto.getDailyRevenueList();
+        try {
+            model.addAttribute("labelsJson", mapper.writeValueAsString(
+                list.stream().map(m -> m.get("label")).collect(Collectors.toList())));
+            model.addAttribute("valuesJson", mapper.writeValueAsString(
+                list.stream().map(m -> m.get("revenue")).collect(Collectors.toList())));
+        } catch (JsonProcessingException e) {
+            model.addAttribute("labelsJson", "[]");
+            model.addAttribute("valuesJson", "[]");
+        }
 
         model.addAttribute("revenue", dto);
         model.addAttribute("selectedDate", date);
