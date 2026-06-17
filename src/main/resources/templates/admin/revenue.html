@@ -85,6 +85,10 @@
 
     <script th:if="${revenue != null}">
         window.addEventListener('load', function() {
+            if (typeof Chart === 'undefined') {
+                console.error('Chart.js not loaded!');
+                return;
+            }
             var ctx = document.getElementById('revenueChart').getContext('2d');
             new Chart(ctx, {
                 type: 'bar',
@@ -106,30 +110,29 @@
                         borderWidth: 1
                     }]
                 },
-            type: 'bar',
-            data: data,
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            callback: function(value) {
-                                return value.toLocaleString('vi-VN') + ' VNĐ';
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return value.toLocaleString('vi-VN') + ' VNĐ';
+                                }
                             }
                         }
-                    }
-                },
-                plugins: {
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                return context.parsed.y.toLocaleString('vi-VN') + ' VNĐ';
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.parsed.y.toLocaleString('vi-VN') + ' VNĐ';
+                                }
                             }
                         }
                     }
                 }
-            }
+            });
         });
     </script>
 
