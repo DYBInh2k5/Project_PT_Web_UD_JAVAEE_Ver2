@@ -477,7 +477,7 @@ BookStore/
 
 ### Yêu cầu
 - Java 17+
-- Maven 3.8+
+- Maven 3.8+ (nếu chưa có, tải tại https://maven.apache.org/download.cgi)
 - SQL Server (có sẵn `BookStore` database)
 
 ### Bước 1: Tạo database + seed dữ liệu
@@ -490,10 +490,17 @@ Script này sẽ:
 - Mật khẩu mặc định cho tất cả tài khoản: **123456** (đã mã hóa BCrypt)
 
 ### Bước 2: Chạy ứng dụng
+Mở terminal tại thư mục `BookStore`:
 ```bash
-cd BookStore
+# Nếu Maven đã có trong PATH
 mvn spring-boot:run
+
+# Nếu Maven chưa có trong PATH (dùng đường dẫn tuyệt đối)
+"%USERPROFILE%\.m2\apache-maven-3.9.9\bin\mvn.cmd" spring-boot:run
 ```
+
+### Bước 3: Mở trình duyệt
+Truy cập: **http://localhost:8080**
 
 ### Tắt ứng dụng
 Nhấn `Ctrl+C` trong cửa sổ terminal đang chạy Maven. Nếu bị treo port:
@@ -503,8 +510,6 @@ netstat -ano | findstr :8080
 # Kill process (thay PID bằng số tìm được)
 taskkill /F /PID <PID>
 ```
-
-Truy cập: **http://localhost:8080**
 
 ### Tài khoản
 | Vai trò | Tài khoản | Mật khẩu |
@@ -559,8 +564,7 @@ Giao diện theo phong cách **Gothic Moderno**:
 
 ## Lưu ý kỹ thuật
 1. **Ảnh sản phẩm**: Upload qua admin được lưu tại `target/classes/static/images/`. Khi chạy `mvn spring-boot:run`, Spring Boot serve static từ `target/classes/static/`, ảnh hiển thị ngay lập tức.
-2. **Seed dữ liệu**: Chạy `database.sql` trong SQL Server Management Studio. Nếu muốn reseed, chạy lại script này (sẽ xóa dữ liệu cũ và tạo mới).
+2. **Seed dữ liệu**: Chạy `database.sql` trong SSMS trước khi khởi động app lần đầu. Nếu muốn reseed, chạy lại script này (sẽ xóa dữ liệu cũ và tạo mới).
 3. **Comment code**: Tất cả các file Java, template, CSS, JS đều có comment tiếng Việt chi tiết giải thích từng lớp, method, trường dữ liệu.
-4. **Seed dữ liệu**: Chạy `database.sql` trong SSMS trước khi khởi động app lần đầu. Script tạo database + bảng + dữ liệu mẫu (3 user, 8 danh mục, 35 sản phẩm, 6 đơn hàng).
-5. **Mật khẩu mặc định**: `123456` (đã mã hóa BCrypt).
-6. **Encoding**: UTF-8 cho toàn bộ ứng dụng (form, Thymeleaf, database dùng NVARCHAR).
+4. **Mật khẩu mặc định**: `123456` (đã mã hóa BCrypt).
+5. **Encoding**: UTF-8 cho toàn bộ ứng dụng (form, Thymeleaf, database dùng NVARCHAR).
