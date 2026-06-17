@@ -491,12 +491,13 @@ Script này sẽ:
 
 ### Bước 2: Chạy ứng dụng
 Mở terminal tại thư mục `BookStore`:
-```bash
-# Nếu Maven đã có trong PATH
+```powershell
+# Cách 1: Thêm Maven vào PATH tạm thời
+$env:Path += ";$env:USERPROFILE\.m2\apache-maven-3.9.9\bin"
 mvn spring-boot:run
 
-# Nếu Maven chưa có trong PATH (dùng đường dẫn tuyệt đối)
-"%USERPROFILE%\.m2\apache-maven-3.9.9\bin\mvn.cmd" spring-boot:run
+# Cách 2: Gọi trực tiếp với &
+& "$env:USERPROFILE\.m2\apache-maven-3.9.9\bin\mvn.cmd" spring-boot:run
 ```
 
 ### Bước 3: Mở trình duyệt
