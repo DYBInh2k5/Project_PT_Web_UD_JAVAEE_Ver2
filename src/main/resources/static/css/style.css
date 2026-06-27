@@ -58,7 +58,7 @@ h1, h2, h3, h4, h5, h6 {
     letter-spacing: 0.05em;
 }
 
-/* ===== NAVBAR ===== */
+/* ===== THANH ĐIỀU HƯỚNG (NAVBAR) ===== */
 .navbar {
     background: var(--dark-surface) !important;
     border-bottom: 1px solid rgba(192, 192, 192, 0.15);
@@ -136,7 +136,7 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: 0;
 }
 
-/* ===== HERO SECTION ===== */
+/* ===== HERO BANNER ===== */
 .hero-section {
     background: linear-gradient(135deg, var(--onyx-black) 0%, var(--dark-surface) 50%, var(--deep-purple) 100%);
     padding: 120px 0 80px;
@@ -207,7 +207,7 @@ h1, h2, h3, h4, h5, h6 {
     transform: translateY(-2px);
 }
 
-/* ===== CARDS ===== */
+/* ===== THẺ (CARDS) ===== */
 .card {
     background: var(--card-bg) !important;
     border: 1px solid rgba(192, 192, 192, 0.12) !important;
@@ -261,7 +261,7 @@ h1, h2, h3, h4, h5, h6 {
     transform: scale(1.05);
 }
 
-/* ===== BUTTONS ===== */
+/* ===== NÚT BẤM (BUTTONS) ===== */
 .btn {
     border-radius: 0.5rem;
     font-weight: 600;
@@ -343,7 +343,7 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 0.875rem;
 }
 
-/* ===== FORMS ===== */
+/* ===== FORM NHẬP LIỆU ===== */
 .form-control, .form-select {
     background: var(--dark-surface);
     border: 1px solid rgba(192, 192, 192, 0.2);
@@ -374,7 +374,7 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 0.4rem;
 }
 
-/* ===== TABLES ===== */
+/* ===== BẢNG (TABLES) ===== */
 .table {
     color: var(--off-white);
     border-color: rgba(192, 192, 192, 0.1);
@@ -408,7 +408,7 @@ h1, h2, h3, h4, h5, h6 {
     background: rgba(255, 255, 255, 0.02);
 }
 
-/* ===== PAGINATION ===== */
+/* ===== PHÂN TRANG (PAGINATION) ===== */
 .pagination .page-link {
     background: var(--card-bg);
     border: 1px solid rgba(192, 192, 192, 0.15);
@@ -437,7 +437,7 @@ h1, h2, h3, h4, h5, h6 {
     border-color: transparent;
 }
 
-/* ===== ALERTS ===== */
+/* ===== THÔNG BÁO (ALERTS) ===== */
 .alert {
     border-radius: 0.5rem;
     border: 1px solid transparent;
@@ -468,7 +468,7 @@ h1, h2, h3, h4, h5, h6 {
     color: #FFD54F;
 }
 
-/* ===== BADGES ===== */
+/* ===== HUY HIỆU TRẠNG THÁI (BADGES) ===== */
 .badge {
     font-weight: 500;
     padding: 0.35em 0.65em;
@@ -497,7 +497,7 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--silver);
 }
 
-/* ===== SIDEBAR ===== */
+/* ===== SIDEBAR QUẢN TRỊ ===== */
 .sidebar {
     background: var(--dark-surface) !important;
     border-right: 1px solid rgba(192, 192, 192, 0.1);
@@ -532,7 +532,7 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--blood-red);
 }
 
-/* ===== FOOTER ===== */
+/* ===== CHÂN TRANG (FOOTER) ===== */
 footer {
     background: var(--dark-surface) !important;
     border-top: 1px solid rgba(192, 192, 192, 0.1);
@@ -540,7 +540,7 @@ footer {
     padding: 2rem 0;
 }
 
-/* ===== CONTAINERS & SECTION ===== */
+/* ===== VÙNG CHỨA & SECTION ===== */
 .container {
     max-width: 1280px;
     margin: 0 auto;
@@ -565,7 +565,7 @@ footer {
     background: var(--blood-red);
 }
 
-/* ===== CART ===== */
+/* ===== GIỎ HÀNG (CART) ===== */
 .cart-item {
     background: var(--card-bg);
     border: 1px solid rgba(192, 192, 192, 0.1);
@@ -592,7 +592,7 @@ footer {
     letter-spacing: 0.03em;
 }
 
-/* ===== ORDER STATUS LABELS ===== */
+/* ===== NHÃN TRẠNG THÁI ĐƠN HÀNG ===== */
 .status-new {
     color: #FFD54F;
 }
@@ -605,7 +605,7 @@ footer {
     color: #4CAF50;
 }
 
-/* ===== REVENUE CHART ===== */
+/* ===== BIỂU ĐỒ DOANH THU ===== */
 .chart-container {
     background: var(--card-bg);
     border: 1px solid rgba(192, 192, 192, 0.1);
@@ -614,7 +614,7 @@ footer {
     margin-bottom: 1.5rem;
 }
 
-/* ===== QUANTITY INPUT ===== */
+/* ===== Ô NHẬP SỐ LƯỢNG ===== */
 .qty-input {
     width: 70px;
     text-align: center;
@@ -625,7 +625,7 @@ footer {
     padding: 0.35rem;
 }
 
-/* ===== DECORATIVE ELEMENTS ===== */
+/* ===== HIỆU ỨNG TRANG TRÍ ===== */
 .gothic-divider {
     text-align: center;
     color: var(--blood-red);
@@ -651,7 +651,7 @@ footer {
     font-size: 0.8rem;
 }
 
-/* ===== LOGIN/REGISTER ===== */
+/* ===== ĐĂNG NHẬP / ĐĂNG KÝ ===== */
 .auth-card {
     max-width: 440px;
     margin: 0 auto;
@@ -668,7 +668,7 @@ footer {
     letter-spacing: 0.03em;
 }
 
-/* ===== DASHBOARD STATS ===== */
+/* ===== THỐNG KÊ DASHBOARD ===== */
 .stat-card {
     background: var(--card-bg);
     border: 1px solid rgba(192, 192, 192, 0.1);
@@ -700,7 +700,7 @@ footer {
     font-size: 0.875rem;
 }
 
-/* ===== IMAGE UPLOAD ===== */
+/* ===== UPLOAD ẢNH ===== */
 .image-upload-preview {
     border: 1px dashed rgba(192, 192, 192, 0.3);
     border-radius: 0.5rem;
@@ -714,7 +714,7 @@ footer {
     border-radius: 0.25rem;
 }
 
-/* ===== ANIMATIONS ===== */
+/* ===== HIỆU ỨNG ĐỘNG (ANIMATIONS) ===== */
 @keyframes pulse-glow {
     0% { opacity: 0.3; }
     100% { opacity: 0.7; }
@@ -740,7 +740,7 @@ footer {
     animation: fade-in-up 480ms ease-out;
 }
 
-/* ===== CATEGORY PILLS ===== */
+/* ===== DANH MỤC DẠNG PILLS ===== */
 .category-pills {
     display: flex;
     flex-wrap: wrap;
@@ -755,7 +755,7 @@ footer {
     font-weight: 500;
 }
 
-/* ===== SEARCH BAR IN NAV ===== */
+/* ===== Ô TÌM KIẾM TRÊN NAVBAR ===== */
 .navbar .input-group {
     max-width: 280px;
 }
@@ -783,7 +783,7 @@ footer {
     color: var(--white);
 }
 
-/* ===== PRODUCT BADGES ===== */
+/* ===== HUY HIỆU SẢN PHẨM ===== */
 .product-card .badge {
     font-weight: 600;
     font-size: 0.7rem;
@@ -791,7 +791,7 @@ footer {
     z-index: 2;
 }
 
-/* ===== PRICE DISPLAY ===== */
+/* ===== HIỂN THỊ GIÁ ===== */
 .price-current {
     color: var(--blood-red);
     font-weight: 700;
@@ -805,7 +805,7 @@ footer {
     margin-left: 0.5rem;
 }
 
-/* ===== STOCK INDICATOR ===== */
+/* ===== CHỈ BÁO TỒN KHO ===== */
 .stock-available {
     color: var(--forest-green);
     font-size: 0.75rem;
@@ -821,7 +821,7 @@ footer {
     font-size: 0.75rem;
 }
 
-/* ===== FOOTER ENHANCEMENTS ===== */
+/* ===== TĂNG CƯỜNG FOOTER ===== */
 footer a {
     transition: color 200ms ease;
 }
@@ -830,7 +830,7 @@ footer a:hover {
     color: var(--blood-red) !important;
 }
 
-/* ===== CATEGORY CARD ON HOME ===== */
+/* ===== DANH MỤC TRÊN TRANG CHỦ ===== */
 .category-card {
     transition: all 300ms ease;
     cursor: pointer;
@@ -843,7 +843,7 @@ footer a:hover {
     box-shadow: 0 4px 20px rgba(139,0,0,0.15);
 }
 
-/* ===== RESPONSIVE ===== */
+/* ===== RESPONSIVE (GIAO DIỆN THÍCH ỨNG) ===== */
 @media (max-width: 768px) {
     .hero-section {
         padding: 80px 0 60px;
@@ -867,7 +867,7 @@ footer a:hover {
     }
 }
 
-/* ===== SCROLLBAR ===== */
+/* ===== THANH CUỘN (SCROLLBAR) ===== */
 ::-webkit-scrollbar {
     width: 8px;
 }
