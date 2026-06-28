@@ -89,8 +89,8 @@
                 console.error('Chart.js not loaded!');
                 return;
             }
-            var labels = JSON.parse('${labelsJson}');
-            var values = JSON.parse('${valuesJson}');
+            var labels = [(${labelsJson})];
+            var values = [(${valuesJson})];
             var ctx = document.getElementById('revenueChart').getContext('2d');
             new Chart(ctx, {
                 type: 'bar',
